@@ -9,7 +9,7 @@
 
 ## Deliverables
 
-* [https://github.com/aforward/seg3103_playground/tree/main/lab01](https://github.com/aforward/seg3103_playground/tree/main/lab01)
+* [https://github.com/Guy-L/seg3103_playground](https://github.com/Guy-L/seg3103_playground)
 * Shared repo above with TA and Professors
 
 ### Java
@@ -61,7 +61,7 @@ I am working with JUnit 5 (via Console standalone 1.7.1)
 To run JUnit, I need to compile the application (see above), and then compile the test code
 
 ```bash
-javac -encoding UTF-8 --source-path test -d dist -cp dist:lib/junit-platform-console-standalone-1.7.1.jar test/*.java
+javac -d dist -cp lib/junit-platform-console-standalone-1.7.1.jar src/*.java test/*.java
 ```
 
 Then I run the tests using
@@ -75,14 +75,14 @@ Here is the output of the tests
 ```bash
 Thanks for using JUnit! Support its development at https://junit.org/sponsoring
 
-╷
-├─ JUnit Jupiter ✔
-│  └─ NewmathTest ✔
-│     ├─ div_ok() ✔
-│     └─ div_by_zero() ✔
-└─ JUnit Vintage ✔
+←[36m.←[0m
+←[36m+--←[0m ←[36mJUnit Jupiter←[0m ←[32m[OK]←[0m
+←[36m| '--←[0m ←[36mNewmathTest←[0m ←[32m[OK]←[0m
+←[36m|   +--←[0m ←[34mdiv_ok()←[0m ←[32m[OK]←[0m
+←[36m|   '--←[0m ←[34mdiv_by_zero()←[0m ←[32m[OK]←[0m
+←[36m'--←[0m ←[36mJUnit Vintage←[0m ←[32m[OK]←[0m
 
-Test run finished after 32 ms
+Test run finished after 54 ms
 [         3 containers found      ]
 [         0 containers skipped    ]
 [         3 containers started    ]
