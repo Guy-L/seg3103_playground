@@ -97,8 +97,6 @@ Test run finished after 54 ms
 [         0 tests failed          ]
 ```
 
-With a screenshot from the terminal
-
 ![Running JUnit in the console](assets/junit_main.png)
 
 
@@ -136,8 +134,6 @@ iex(1)> NewmathEx.div(10, 2)
 iex(2)>
 ```
 
-With a screenshot from the terminal
-
 ![Running Elixir in the console](assets/elixir_iex.png)
 
 ### ExUnit
@@ -147,22 +143,22 @@ ExUnit is built directly into Elixir (and compiled like above with `mix compile`
 To run the tests
 
 ```
-mix test
+$ mix test
 ```
 
 Here is the output of the tests
 
 ```bash
 Compiling 1 file (.ex)
+Generated newmath_ex app
 ...
 
-Finished in 0.02 seconds
+Finished in 0.04 seconds (0.00s async, 0.04s sync)
 1 doctest, 2 tests, 0 failures
 
-Randomized with seed 975082
-```
+Randomized with seed 368000
 
-With a screenshot from the terminal
+```
 
 ![Running ExUnit in the console](assets/exunit_main.png)
 
