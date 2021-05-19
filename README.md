@@ -14,19 +14,20 @@
 
 ### Java
 
-I am running Java openjdk 16
+I am running Java 8:
 
 ```bash
 $ java --version
-openjdk 16 2021-03-16
-OpenJDK Runtime Environment (build 16+14)
-OpenJDK 64-Bit Server VM (build 16+14, mixed mode)
+java version "1.8.0_291"
+Java(TM) SE Runtime Environment (build 1.8.0_291-b10)
+Java HotSpot(TM) 64-Bit Server VM (build 25.291-b10, mixed mode)
 ```
+![Running Java in the console](assets/java_version.png)
 
 To run the Java program (in `newmath_java`), first I compile it
 
 ```bash
-javac -encoding UTF-8 --source-path src -d dist src/*.java
+$ javac -d dist src/*.java
 ```
 
 Then I run it
@@ -39,9 +40,12 @@ Here is an output of the running program
 
 ```bash
 Newmath (type 'exit' to exit program)
-Numerator: 10
-Demoninator: 2
-10 / 2 = 5
+Numerator: 5040
+Demoninator: 1008
+5040 / 1008 = 5
+Numerator: 284
+Demoninator: 71
+284 / 71 = 4
 Numerator: exit
 ```
 
