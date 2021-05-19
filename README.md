@@ -22,7 +22,7 @@ java version "1.8.0_291"
 Java(TM) SE Runtime Environment (build 1.8.0_291-b10)
 Java HotSpot(TM) 64-Bit Server VM (build 25.291-b10, mixed mode)
 ```
-![Running Java in the console](assets/java_version.png)
+![Java version](assets/java_version.png)
 
 To run the Java program (in `newmath_java`), first I compile it
 
@@ -104,34 +104,36 @@ With a screenshot from the terminal
 
 ### Elixir
 
-I am running Elixir 11.4 with Erlang 23
+I am running Elixir 12.0 with Erlang 22.3
 
 ```bash
 $ elixir --version
-Erlang/OTP 23 [erts-11.1.7] [source] [64-bit] [smp:8:8] [ds:8:8:10] [async-threads:1] [dtrace]
+Erlang/OTP 22 [erts-10.7] [64-bit] [smp:6:6] [ds:6:6:10] [async-threads:1]
 
-Elixir 1.11.4 (compiled with Erlang/OTP 23)
+Elixir 1.12.0 (compiled with Erlang/OTP 22)
 ```
+![Elexir version](assets/elixir_version.png)
 
 To run the Elixir program (in `newmath_ex`), first I compile it
 
 ```bash
-mix compile
+$ mix compile
+Compiling 1 file (.ex)
+Generated newmath_ex app
 ```
 
 Then I run it
 
 ```bash
-iex -S mix
+$ iex -S mix
 ```
 
 Here is an output of the running program
 
 ```elixir
-iex(1)> NewmathEx.
-MixProject    div/2
 iex(1)> NewmathEx.div(10, 2)
 {:ok, 5.0}
+iex(2)>
 ```
 
 With a screenshot from the terminal
