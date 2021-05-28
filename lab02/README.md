@@ -68,7 +68,16 @@ To finally construct this table:
 
 ### Exercise 2 — Running Things
 
-<br><br><br>
+As with Lab 1, to compile and run the tests, we send (from the `ecs` folder):
+```bash
+$ javac -d dist -cp lib/junit-platform-console-standalone-1.7.1.jar src/*.java test/*.java
+$ java -jar lib/junit-platform-console-standalone-1.7.1.jar --class-path dist --scan-class-path
+```
+
+We get this output:
+
+![Date test outputs](assets/output.png)
 
 ### Exercise 2 — Results
 
+From the output, we can conclude that both the explicit and parametrized tests we have written (for both valid and invalid input) are correct, and that the method thus behaves as expected. Have a good day!
