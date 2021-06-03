@@ -171,11 +171,11 @@ The coverage is about 80%. There's an interesting thing to note here: while the 
 
 3. **Adding test cases for `setDay` and `setMonth` in `DateExceptionTest`**. Branch and condition testing for these methods was incomplete and not all exceptions were thrown, so I added 4 test cases to remedy that. I also removed the `y=1500, m=02, d=31` test as it was equivalent to the `y=1500, m=02, d=29` test. 100% coverage for these methods was achieved.
 
-4. **Adding test cases for `isEndOfMonth` and `isThirtyDayMonth` in `DateNextDateOkTest`**. `isEndOfMonth` is conditional on `nextDate` running, and `isThirtyDayMonth` is conditional on `isEndOfMonth` running. I added 3 test cases to cover unexplored branches and reached 100% coverage of the second method, however the first proved impossible. To achieve full condition coverage, I would need a situation with `month=2`, `day=29` and `leap=false`. This would be an invalid date and would thus throw an exception, disallowing me from running `nextDate`.
+4. **Adding test cases for `isEndOfMonth` and `isThirtyDayMonth` in `DateNextDateOkTest`**. `isEndOfMonth` is conditional on `nextDate` running, and `isThirtyDayMonth` is conditional on `isEndOfMonth` running. I added 3 test cases to cover unexplored branches and reached 100% coverage of the second method, however the first proved **impossible**. To achieve full condition coverage, I would need a situation with `month=2`, `day=29` and `leap=false`. This would be an invalid date and would thus throw an exception, disallowing me from running `nextDate`.
 
 5. **Adding test cases for `isLeapYear` in `DateNextDateOkTest` and `toString` in `DateMiscTest`**. A couple miscellaneous methods that weren't fully covered. For organization purposes, I implemented my `toString` test as a manual test in a seperate class.
 
-6. **Adding test cases for `equals` in `DateMiscTest`**. To finish off, a few test cases were needed for when compared dates weren't equal. Since they didn't fit with our other tests, these were also put in `DateMiscTest`. 
+6. **Adding test cases for `equals` in `DateMiscTest`**. To finish off, a few test cases were needed for when compared dates weren't equal. Since they didn't fit in with our other tests, these were also put in `DateMiscTest`. 
 
 In the end, **100% instruction coverage of `Date.java` was achieved**, but one branch was missed due to the above stated reason and cannot be covered.
 
