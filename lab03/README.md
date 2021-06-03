@@ -111,7 +111,7 @@ The coverage is about 80%. There's an interesting thing to note here: while the 
 <details>
 <summary>Click to expand!</summary>
 
-<br>It's now time to improve the `Date.java` test coverage. I'll list the steps I took in the order I took them, and I'll conclude whether 100% coverage is possible at the end. Assume that tests were ran successfully after every step. For the reasons stated in [the last part](#3--initial-datejava-coverage), I will not try to improve the coverage of the test classes themselves and focus on `Date.java` coverage. 
+<br>It's now time to improve the `Date.java` test suite coverage. I'll list the steps I took in the order I took them, and I'll conclude whether 100% coverage is possible at the end. Assume that tests were ran successfully after every step. For the reasons stated in [the last part](#3--initial-datejava-coverage), I will not try to improve the coverage of the test classes themselves and focus on `Date.java` coverage. 
 
 1. **Delete redundant manual tests.** The `DateTest.java` class consists of manual tests which are already covered by the more efficient, elegant and organized parametrized test classes. We can safely delete it without lowering the coverage:
 
