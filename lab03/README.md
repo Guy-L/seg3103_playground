@@ -174,71 +174,7 @@ Like in part 4, I'll go through my steps refactoring `Date.java` and show releva
 
 1. **Style changes**. Various style changes were applied to improve code readability, such as the use of one-line ifs where applicable, removing redundant `this` keywords and more consistant spacing.
 
-2. **Storing `isLeap` and `isThirtyDayMonth` boolean fields``**. Calculating whether the year is a leap year or the month a 30 day month several times over an object's lifetime is inefficient; these will now be calculated once during instanciation. `isLeapYear` and `isThirtyDayMonth` were removed and methods were changed to use these value instead. **N.B.:** `isEndOfMonth` could be replaced for a similar reason, but it does help code readability and is useless to calculate and store for objects not expected to call `nextDate`. 
-
-<table>
-  <tr>
-    <td>
-		Before
-    </td>
-    <td>
-		After
-    </td>
-  </tr>
-  <tr>
-    <td>
-	<pre lang="java">
-	private boolean isThirtyDayMonth() {
-		if (this.month == 4 || this.month == 6 || this.month == 9 || this.month == 11)
-			return true;
-		else return false;
-	}
-	
-	public boolean isLeapYear() {
-		if (year % 100 == 0) {
-			return year % 400 == 0;
-		}
-		return year % 4 == 0;
-	}
-	
-	...
-	
-    if (isThirtyDayMonth() && day > 30) ...
-	if (this.month == 2 && isLeapYear() && day > 29) ...
-	if (this.month == 2 && !isLeapYear() && day > 28) ...
-	
-	...
-	
-	boolean leap = isLeapYear();
-	if (day == 31 || (day == 30 && isThirtyDayMonth()) || ...)</pre>
-    </td>
-    <td>
-    <pre lang="java">
-	private boolean isLeapYear;
-	private boolean isThirtyDayMonth;
-	
-	private void setYear(int year) {
-		...
-		isLeapYear = (year % 100 == 0) ? (year % 400 == 0) : (year % 4 == 0);
-	}
-	
-	private void setMonth(int month) {
-		...
-		isThirtyDayMonth = month == 4 || month == 6 || month == 9 || month == 11;
-	}
-	
-	...
-	
-	if (isThirtyDayMonth && day > 30) ...
-	if (month == 2 && isLeapYear && day > 29) ...
-	if (month == 2 && !isLeapYear && day > 28) ...
-	
-	...
-	
-	if (... day == 30 && isThirtyDayMonth ...)</pre>
-    </td>
-  </tr>
-</table>
+2. **Storing `isLeap` and `isThirtyDayMonth` boolean fields**. Calculating whether the year is a leap year or the month a 30 day month several times over an object's lifetime is inefficient; these will now be calculated once during instanciation. `isLeapYear` and `isThirtyDayMonth` were removed and methods were changed to use these value instead. **N.B.:** `isEndOfMonth` could be replaced for a similar reason, but it does help code readability and is useless to calculate and store for objects not expected to call `nextDate`. 
 
 3. **Refactoring `isEndOfMonth`**. Changes were made to make better use of the `return` statement and the ternary operator was introduced for readability purposes. 
 
@@ -254,7 +190,7 @@ Like in part 4, I'll go through my steps refactoring `Date.java` and show releva
   <tr>
     <td>
 	<pre lang="java">
-    private boolean isEndOfMonth() {
+	private boolean isEndOfMonth() {
 		boolean leap = isLeapYear();
 		if (day == 31 || (day == 30 && isThirtyDayMonth()) ||
 				(this.month == 2 && ((day == 29 && leap) || (day == 28 && !leap))))
@@ -263,7 +199,7 @@ Like in part 4, I'll go through my steps refactoring `Date.java` and show releva
 	}</pre>
     </td>
     <td>
-    <pre lang="java">
+	<pre lang="java">
 	private boolean isEndOfMonth() {
 		return day == 31 || (day == 30 && isThirtyDayMonth) || (month == 2 && (isLeapYear ? day == 29 : day == 28));
 	}</pre>
@@ -274,4 +210,9 @@ Like in part 4, I'll go through my steps refactoring `Date.java` and show releva
 <br><br><br>
 ### 6 — Final `Date.java` Coverage & Analysis
 
-TODO: Add collapsible sections!
+After refactoring, **complete 100% coverage of `Date.java` was achieved** for both instructions and branches:
+
+![Jacoco Eclipse report, final coverage](assets/covtest_date5.png)
+![Jacoco Eclipse report, final coverage full](assets/covtest_date6.png)
+
+My branch coverage improved from 98.5% to 100%.<br>Refactoring the `isEndOfMonth` method in the way that I did eliminated our missing branch problem. Due to ternary logic, the program no longer needed to test for `day == 29` for non-leap years; if `isLeapYear == false`, it would only evaluate `day == 28`. We can thus conclude that 100% total coverage is possible, so long as practically impossible branches are eliminated from consideration. Have a great day!
