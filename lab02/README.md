@@ -80,4 +80,4 @@ We get this output:
 
 ### Exercise 2 — Results
 
-From the output, we can conclude that both the explicit and parametrized tests we have written (for both valid and invalid input) are correct, and that the method thus behaves as expected. Have a good day!
+From the output, we can conclude that both the explicit and parametrized tests we have written (for both valid and invalid inputs) are correct, and that the given `nextDate` method thus behaves as expected. Have a good day!
