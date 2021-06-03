@@ -156,19 +156,120 @@ It's now time to improve the `Date.java` test coverage. I'll list the steps I to
 
 3. **Adding test cases for `setDay` and `setMonth` in `DateExceptionTest`**. Branch and condition testing for these methods was incomplete and not all exceptions were thrown, so I added 4 test cases to remedy that. I also removed the `y=1500, m=02, d=31` test as it was equivalent to the `y=1500, m=02, d=29` test. 100% coverage for these methods was achieved.
 
-4. **Adding test cases for `isEndOfMonth` and `isThirtyDayMonth` in `DateNextDateOkTest`**. `isEndOfMonth` is conditional on `nextDate` running, and `isThirtyDayMonth` is conditional on `isEndOfMonth` running. I added 3 test cases to cover unexplored branches and reached 100% coverage of the second method, however the first proved impossible. To achieve full condition coverage, I would have needed a situation with both `month=2`, `day=29` and `leap=false`. This would be an invalid date and would thus throw an exception, disallowing me from running `nextDate`.
+4. **Adding test cases for `isEndOfMonth` and `isThirtyDayMonth` in `DateNextDateOkTest`**. `isEndOfMonth` is conditional on `nextDate` running, and `isThirtyDayMonth` is conditional on `isEndOfMonth` running. I added 3 test cases to cover unexplored branches and reached 100% coverage of the second method, however the first proved impossible. To achieve full condition coverage, I would need a situation with `month=2`, `day=29` and `leap=false`. This would be an invalid date and would thus throw an exception, disallowing me from running `nextDate`.
 
 5. **Adding test cases for `isLeapYear` in `DateNextDateOkTest` and `toString` in `DateMiscTest`**. A couple miscellaneous methods that weren't fully covered. For organization purposes, I implemented my `toString` test as a manual test in a seperate class.
 
-6. **Adding test cases for `equals` in `DateMiscTest`**. To finish off, a few test cases were needed for when compared dates weren't equal. Since they wasn't useful for our other tests, these were also put in `DateMiscTest`. 
+6. **Adding test cases for `equals` in `DateMiscTest`**. To finish off, a few test cases were needed for when compared dates weren't equal. Since they didn't fit with our other tests, these were also put in `DateMiscTest`. 
 
-In the end, **100% instruction coverage of `Date.java` was achieved**, but one branch was missed due to the above stated reason.
+In the end, **100% instruction coverage of `Date.java` was achieved**, but one branch was missed due to the above stated reason and cannot be covered.
 
 ![Jacoco Eclipse report, step 6 coverage](assets/covtest_date3.png)
 ![Jacoco Eclipse report, step 6 coverage full](assets/covtest_date4.png)
 
 <br><br><br>
 ### 5 — Refactoring `Date.java`
+
+Like in part 4, I'll go through my steps refactoring `Date.java` and show relevant snippets.<br>Analysis will be done in part 6.
+
+1. **Style changes**. Various style changes were applied to improve code readability, such as the use of one-line ifs where applicable, removing redundant `this` keywords and more consistant spacing.
+
+2. **Storing `isLeap` and `isThirtyDayMonth` boolean fields``**. Calculating whether the year is a leap year or the month a 30 day month several times over an object's lifetime is inefficient; these will now be calculated once during instanciation. `isLeapYear` and `isThirtyDayMonth` were removed and methods were changed to use these value instead. **N.B.:** `isEndOfMonth` could be replaced for a similar reason, but it does help code readability and is useless to calculate and store for objects not expected to call `nextDate`. 
+
+<table>
+  <tr>
+    <td>
+		Before
+    </td>
+    <td>
+		After
+    </td>
+  </tr>
+  <tr>
+    <td>
+	<pre lang="java">
+	private boolean isThirtyDayMonth() {
+		if (this.month == 4 || this.month == 6 || this.month == 9 || this.month == 11)
+			return true;
+		else return false;
+	}
+	
+	public boolean isLeapYear() {
+		if (year % 100 == 0) {
+			return year % 400 == 0;
+		}
+		return year % 4 == 0;
+	}
+	
+	...
+	
+    if (isThirtyDayMonth() && day > 30) ...
+	if (this.month == 2 && isLeapYear() && day > 29) ...
+	if (this.month == 2 && !isLeapYear() && day > 28) ...
+	
+	...
+	
+	boolean leap = isLeapYear();
+	if (day == 31 || (day == 30 && isThirtyDayMonth()) || ...)</pre>
+    </td>
+    <td>
+    <pre lang="java">
+	private boolean isLeapYear;
+	private boolean isThirtyDayMonth;
+	
+	private void setYear(int year) {
+		...
+		isLeapYear = (year % 100 == 0) ? (year % 400 == 0) : (year % 4 == 0);
+	}
+	
+	private void setMonth(int month) {
+		...
+		isThirtyDayMonth = month == 4 || month == 6 || month == 9 || month == 11;
+	}
+	
+	...
+	
+	if (isThirtyDayMonth && day > 30) ...
+	if (month == 2 && isLeapYear && day > 29) ...
+	if (month == 2 && !isLeapYear && day > 28) ...
+	
+	...
+	
+	if (... day == 30 && isThirtyDayMonth ...)</pre>
+    </td>
+  </tr>
+</table>
+
+3. **Refactoring `isEndOfMonth`**. Changes were made to make better use of the `return` statement and the ternary operator was introduced for readability purposes. 
+
+<table>
+  <tr>
+    <td>
+		Before
+    </td>
+    <td>
+		After
+    </td>
+  </tr>
+  <tr>
+    <td>
+	<pre lang="java">
+    private boolean isEndOfMonth() {
+		boolean leap = isLeapYear();
+		if (day == 31 || (day == 30 && isThirtyDayMonth()) ||
+				(this.month == 2 && ((day == 29 && leap) || (day == 28 && !leap))))
+			return true;
+		else return false;
+	}</pre>
+    </td>
+    <td>
+    <pre lang="java">
+	private boolean isEndOfMonth() {
+		return day == 31 || (day == 30 && isThirtyDayMonth) || (month == 2 && (isLeapYear ? day == 29 : day == 28));
+	}</pre>
+    </td>
+  </tr>
+</table>
 
 <br><br><br>
 ### 6 — Final `Date.java` Coverage & Analysis
