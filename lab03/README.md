@@ -31,7 +31,10 @@ Lab Proceedings:
 
 ### 1 — Running Things
 
-Let's first compile and run the tests for the provided programs.<br>
+<details>
+<summary>Click to expand!</summary>
+
+<br>Let's first compile and run the tests for the provided programs.<br>
 For `computation`:
 
 ``` bash
@@ -51,11 +54,15 @@ $ java -jar lib/junit-platform-console-standalone-1.7.1.jar --class-path dist --
 ![Compile test, date](assets/date_run.png)
 
 All tests ran successfully. 
+</details>
 
 <br><br><br>
 ### 2 — `Computations.java` Coverage
 
-For starters, let's run Jacoco from the command line using the provided commands:
+<details>
+<summary>Click to expand!</summary>
+
+<br>For starters, let's run Jacoco from the command line using the provided commands:
 
 ``` bash
 $ java -javaagent:lib/jacocoagent.jar -jar lib/junit-platform-console-standalone-1.7.1.jar --class-path dist --scan-class-path
@@ -82,21 +89,29 @@ For the rest of this lab, we'll use the Jacoco Eclipse plugin.<br>Here's our res
 
 ![Jacoco Eclipse report, computation coverage](assets/covtest_computation.png)
 
-**N.B.:** Interestingly, we obtain similar results, but not the exact same ones. Jacoco must work differently as a plugin than it does standalone, as even the total number of instructions is different in these reports (92 total instructions according to Jacoco Eclipse, 94 standalone). 
+**N.B.:** Interestingly, we obtain similar results, but not the exact same ones. Jacoco must work differently as a plugin than it does standalone, as even the total number of instructions is different in these reports (92 total instructions according to Jacoco Eclipse, 94 on standalone). 
+</details>
 
 <br><br><br>
 ### 3 — Initial `Date.java` Coverage
 
-Before changing anything in the `date` project, let's check the coverage of the given test suite:
+<details>
+<summary>Click to expand!</summary>
+
+<br>Before changing anything in the `date` project, let's check the coverage of the given test suite:
 
 ![Jacoco Eclipse report, initial date coverage](assets/covtest_date1.png)
 
 The coverage is about 80%. There's an interesting thing to note here: while the JUnit view (seen left) says all tests ran successfully, the coverage metrics show some tests didn't run *fully*. This is due to the way `assertThrows` and `expected=Exception` tests work (they do not have to run *fully* to run *successfully*, since they expect to be interrupted). I'll limit further screenshots to only the coverage view from now on.
+</details>
 
 <br><br><br>
 ### 4 — Improving `Date.java` Coverage
+	
+<details>
+<summary>Click to expand!</summary>
 
-It's now time to improve the `Date.java` test coverage. I'll list the steps I took in the order I took them, and I'll conclude whether 100% coverage is possible at the end. Assume that tests were ran successfully after every step. For the reasons stated in [the last part](#3--initial-datejava-coverage), I will not try to improve the coverage of the test classes themselves and focus on `Date.java` coverage. 
+<br>It's now time to improve the `Date.java` test coverage. I'll list the steps I took in the order I took them, and I'll conclude whether 100% coverage is possible at the end. Assume that tests were ran successfully after every step. For the reasons stated in [the last part](#3--initial-datejava-coverage), I will not try to improve the coverage of the test classes themselves and focus on `Date.java` coverage. 
 
 1. **Delete redundant manual tests.** The `DateTest.java` class consists of manual tests which are already covered by the more efficient, elegant and organized parametrized test classes. We can safely delete it without lowering the coverage:
 
@@ -166,11 +181,15 @@ In the end, **100% instruction coverage of `Date.java` was achieved**, but one b
 
 ![Jacoco Eclipse report, step 6 coverage](assets/covtest_date3.png)
 ![Jacoco Eclipse report, step 6 coverage full](assets/covtest_date4.png)
+</details>
 
 <br><br><br>
 ### 5 — Refactoring `Date.java`
+	
+<details>
+<summary>Click to expand!</summary>
 
-Like in part 4, I'll go through my steps refactoring `Date.java` and show relevant snippets.<br>Analysis will be done in part 6.
+<br>Like in part 4, I'll go through my steps refactoring `Date.java` and show relevant snippets.<br>Analysis will be done in part 6.
 
 1. **Style changes**. Various style changes were applied to improve code readability, such as the use of one-line ifs where applicable, removing redundant `this` keywords and more consistant spacing.
 
@@ -190,29 +209,34 @@ Like in part 4, I'll go through my steps refactoring `Date.java` and show releva
   <tr>
     <td>
 	<pre lang="java">
-	private boolean isEndOfMonth() {
-		boolean leap = isLeapYear();
-		if (day == 31 || (day == 30 && isThirtyDayMonth()) ||
-				(this.month == 2 && ((day == 29 && leap) || (day == 28 && !leap))))
-			return true;
-		else return false;
-	}</pre>
+private boolean isEndOfMonth() {
+  boolean leap = isLeapYear();
+  if (day == 31 || (day == 30 && isThirtyDayMonth()) ||
+    (this.month == 2 && ((day == 29 && leap) || (day == 28 && !leap))))
+      return true;
+  else return false;
+}</pre>
     </td>
     <td>
 	<pre lang="java">
-	private boolean isEndOfMonth() {
-		return day == 31 || (day == 30 && isThirtyDayMonth) || (month == 2 && (isLeapYear ? day == 29 : day == 28));
-	}</pre>
+private boolean isEndOfMonth() {
+  return day == 31 || (day == 30 && isThirtyDayMonth) || (month == 2 && (isLeapYear ? day == 29 : day == 28));
+}</pre>
     </td>
   </tr>
 </table>
+</details>
 
 <br><br><br>
 ### 6 — Final `Date.java` Coverage & Analysis
+	
+<details>
+<summary>Click to expand!</summary>
 
-After refactoring, **complete 100% coverage of `Date.java` was achieved** for both instructions and branches:
+<br>After refactoring, **complete 100% coverage of `Date.java` was achieved** for both instructions and branches:
 
 ![Jacoco Eclipse report, final coverage](assets/covtest_date5.png)
 ![Jacoco Eclipse report, final coverage full](assets/covtest_date6.png)
 
 My branch coverage improved from 98.5% to 100%.<br>Refactoring the `isEndOfMonth` method in the way that I did eliminated our missing branch problem. Due to ternary logic, the program no longer needed to test for `day == 29` for non-leap years; if `isLeapYear == false`, it would only evaluate `day == 28`. We can thus conclude that 100% total coverage is possible, so long as practically impossible branches are eliminated from consideration. Have a great day!
+</details>
