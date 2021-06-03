@@ -173,7 +173,7 @@ The coverage is about 80%. There's an interesting thing to note here: while the 
 
 4. **Adding test cases for `isEndOfMonth` and `isThirtyDayMonth` in `DateNextDateOkTest`**. `isEndOfMonth` is conditional on `nextDate` running, and `isThirtyDayMonth` is conditional on `isEndOfMonth` running. I added 3 test cases to cover unexplored branches and reached 100% coverage of the second method, however the first proved **impossible**. To achieve full condition coverage, I would need a situation with `month=2`, `day=29` and `leap=false`. This would be an invalid date and would thus throw an exception, disallowing me from running `nextDate`.
 
-5. **Adding test cases for `isLeapYear` in `DateNextDateOkTest` and `toString` in `DateMiscTest`**. A couple miscellaneous methods that weren't fully covered. For organization purposes, I implemented my `toString` test as a manual test in a seperate class.
+5. **Adding test cases for `isLeapYear` in `DateNextDateOkTest` and `toString` in `DateMiscTest`**. A couple miscellaneous methods that weren't fully covered. For organization purposes, I implemented my `toString` test as a manual test in a separate class.
 
 6. **Adding test cases for `equals` in `DateMiscTest`**. To finish off, a few test cases were needed for when compared dates weren't equal. Since they didn't fit in with our other tests, these were also put in `DateMiscTest`. 
 
@@ -191,7 +191,7 @@ In the end, **100% instruction coverage of `Date.java` was achieved**, but one b
 
 <br>Like in part 4, I'll go through my steps refactoring `Date.java` and show relevant snippets.<br>Analysis will be done in part 6.
 
-1. **Style changes**. Various style changes were applied to improve code readability, such as the use of one-line ifs where applicable, removing redundant `this` keywords and more consistant spacing.
+1. **Style changes**. Various style changes were applied to improve code readability, such as the use of one-line ifs where applicable, removing redundant `this` keywords and more consistent spacing.
 
 2. **Storing `isLeap` and `isThirtyDayMonth` boolean fields**. Calculating whether the year is a leap year or the month a 30 day month several times over an object's lifetime is inefficient; these will now be calculated once during instantiation. `isLeapYear` and `isThirtyDayMonth` were removed and methods were changed to use these value instead. **N.B.:** `isEndOfMonth` could be replaced for a similar reason, but it does help code readability and is useless to calculate and store for objects not expected to call `nextDate`. 
 
