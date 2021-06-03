@@ -41,6 +41,16 @@ public class DateNextDateOkTest
     params.add(new Integer[] { 1901, 7, 31, 1901, 8, 1 });
     params.add(new Integer[] { 3453, 1, 31, 3453, 2, 1 });
     params.add(new Integer[] { 3456, 12, 31, 3457, 1, 1 });
+    
+    //Missing isEndOfMonth 3rd condition coverage
+    params.add(new Integer[] { 444, 2, 28, 444, 2, 29 });
+    params.add(new Integer[] { 445, 2, 28, 445, 3, 1 });
+
+    //Missing isThirtyDayMonth condition coverage
+    params.add(new Integer[] { 1111, 9, 30, 1111, 10, 1 });
+    
+    //Missing isLeapYear condition coverage
+    params.add(new Integer[] { 400, 5, 5, 400, 5, 6 });
     return params;
   }
 

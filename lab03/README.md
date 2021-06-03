@@ -91,10 +91,90 @@ Before changing anything in the `date` project, let's check the coverage of the 
 
 ![Jacoco Eclipse report, initial date coverage](assets/covtest_date1.png)
 
-There's an interesting thing to note here: while the JUnit view (seen left) says all tests ran successfully, the coverage metrics show some tests didn't run *fully*. This is due to the way `assertThrows` and `expected=Exception` tests work (they do not have to run *fully* to run *successfully*, since they expect to be interrupted). I'll limit further screenshots to the coverage view exclusively from now on.
+The coverage is about 80%. There's an interesting thing to note here: while the JUnit view (seen left) says all tests ran successfully, the coverage metrics show some tests didn't run *fully*. This is due to the way `assertThrows` and `expected=Exception` tests work (they do not have to run *fully* to run *successfully*, since they expect to be interrupted). I'll limit further screenshots to only the coverage view from now on.
 
 <br><br><br>
 ### 4 — Improving `Date.java` Coverage
+
+It's now time to improve the `Date.java` test coverage. I'll list the steps I took in the order I took them, and I'll conclude whether 100% coverage is possible at the end. Assume that tests were ran successfully after every step. For the reasons stated in [the last part](#3--initial-datejava-coverage), I will not try to improve the coverage of the test classes themselves and focus on `Date.java` coverage. 
+
+1. **Delete redundant manual tests.** The `DateTest.java` class consists of manual tests which are already covered by the more efficient, elegant and organized parametrized test classes. We can safely delete it without lowering the coverage:
+
+![Jacoco Eclipse report, step 1 coverage](assets/covtest_date2.png)
+
+2. **Swap `DateExceptionTest` and `DateNextDateExceptionTest`, then clear the latter.** We can see that the given test files are swapped: `DateExceptionTest` is testing for an exception when calling `nextDate()`, while `DateNextDateExceptionTest` is testing for an exception when creating a new `Date`. Since the last 5 test cases from Lab 2 are really only checking whether instantiating invalid dates throws an exception (and not `nextDate()`), we can clear `DateNextDateExceptionTest` for now. Again, coverage was not lowered.
+
+<table>
+  <tr>
+    <td>
+    -
+    </td>
+    <td>
+    DateExceptionTest
+    </td>
+    <td>
+    DateNextDateExceptionTest
+    </td>
+  </tr>
+  <tr>
+    <td>
+    Before
+    </td>
+    <td>
+    <pre lang="java">
+    @Test(expected=IllegalArgumentException.class)
+    public void tests(){
+      Date date = new Date(year,month,day);
+      Date next = date.nextDate();
+      Assert.assertEquals(expectedYear, next.getYear());
+      Assert.assertEquals(expectedMont, next.getMonth());
+      Assert.assertEquals(expectedDay, next.getDay());
+    }</pre>
+    </td>
+    <td>
+    <pre lang="java">
+    @Test(expected = IllegalArgumentException.class)
+    public void testNextDate(){
+      new Date(year, month, day);
+    }</pre>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    After
+    </td>
+    <td>
+    <pre lang="java">
+    @Test(expected = IllegalArgumentException.class)
+    public void testValidDate() {
+      new Date(year, month, day);
+    }</pre>
+    </td>
+    <td>
+    <pre lang="java">
+  @Test(expected = IllegalArgumentException.class)
+  public void testNextDate(){
+    Date date = new Date(year, month, day);
+    Date next = date.nextDate();
+    Assert.assertEquals(expectedYear, next.getYear());
+    Assert.assertEquals(expectedMonth, next.getMonth());
+    Assert.assertEquals(expectedDay, next.getDay());
+  }</pre>
+    </td>
+  </tr>
+</table>
+
+3. **Adding test cases for `setDay` and `setMonth` in `DateExceptionTest`**. Branch and condition testing for these methods was incomplete and not all exceptions were thrown, so I added 4 test cases to remedy that. I also removed the `y=1500, m=02, d=31` test as it was equivalent to the `y=1500, m=02, d=29` test. 100% coverage for these methods was achieved.
+
+4. **Adding test cases for `isEndOfMonth` and `isThirtyDayMonth` in `DateNextDateOkTest`**. `isEndOfMonth` is conditional on `nextDate` running, and `isThirtyDayMonth` is conditional on `isEndOfMonth` running. I added 3 test cases to cover unexplored branches and reached 100% coverage of the second method, however the first proved impossible. To achieve full condition coverage, I would have needed a situation with both `month=2`, `day=29` and `leap=false`. This would be an invalid date and would thus throw an exception, disallowing me from running `nextDate`.
+
+5. **Adding test cases for `isLeapYear` in `DateNextDateOkTest` and `toString` in `DateMiscTest`**. A couple miscellaneous methods that weren't fully covered. For organization purposes, I implemented my `toString` test as a manual test in a seperate class.
+
+6. **Adding test cases for `equals` in `DateMiscTest`**. To finish off, a few test cases were needed for when compared dates weren't equal. Since they wasn't useful for our other tests, these were also put in `DateMiscTest`. 
+
+In the end, **100% instruction coverage of `Date.java` was achieved**, but one branch was missed due to the above stated reason.
+![Jacoco Eclipse report, step 6 coverage](assets/covtest_date3.png)
+![Jacoco Eclipse report, step 6 coverage full](assets/covtest_date4.png)
 
 <br><br><br>
 ### 5 — Refactoring `Date.java`
