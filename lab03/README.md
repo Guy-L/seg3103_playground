@@ -102,7 +102,7 @@ It's now time to improve the `Date.java` test coverage. I'll list the steps I to
 
 ![Jacoco Eclipse report, step 1 coverage](assets/covtest_date2.png)
 
-2. **Swap `DateExceptionTest` and `DateNextDateExceptionTest`, then clear the latter.** We can see that the given test files are swapped: `DateExceptionTest` is testing for an exception when calling `nextDate()`, while `DateNextDateExceptionTest` is testing for an exception when creating a new `Date`. Since the last 5 test cases from Lab 2 are really only checking whether instantiating invalid dates throws an exception (and not `nextDate()`), we can clear `DateNextDateExceptionTest` for now. Again, coverage was not lowered.
+2. **Swap `DateExceptionTest` and `DateNextDateExceptionTest`, then delete the latter.** We can see that the given test files are swapped: `DateExceptionTest` is testing for an exception when calling `nextDate()`, while `DateNextDateExceptionTest` is testing for an exception when creating a new `Date`. The last 5 test cases from Lab 2 are really only checking whether instantiating invalid dates throws an exception (and not `nextDate()`); in fact, neither `nextDate` nor any method called by `nextDate` can throw an exception. We can thus delete `DateNextDateExceptionTest`. 
 
 <table>
   <tr>
@@ -150,17 +150,7 @@ It's now time to improve the `Date.java` test coverage. I'll list the steps I to
       new Date(year, month, day);
     }</pre>
     </td>
-    <td>
-    <pre lang="java">
-  @Test(expected = IllegalArgumentException.class)
-  public void testNextDate(){
-    Date date = new Date(year, month, day);
-    Date next = date.nextDate();
-    Assert.assertEquals(expectedYear, next.getYear());
-    Assert.assertEquals(expectedMonth, next.getMonth());
-    Assert.assertEquals(expectedDay, next.getDay());
-  }</pre>
-    </td>
+    <td>-</td>
   </tr>
 </table>
 
@@ -173,6 +163,7 @@ It's now time to improve the `Date.java` test coverage. I'll list the steps I to
 6. **Adding test cases for `equals` in `DateMiscTest`**. To finish off, a few test cases were needed for when compared dates weren't equal. Since they wasn't useful for our other tests, these were also put in `DateMiscTest`. 
 
 In the end, **100% instruction coverage of `Date.java` was achieved**, but one branch was missed due to the above stated reason.
+
 ![Jacoco Eclipse report, step 6 coverage](assets/covtest_date3.png)
 ![Jacoco Eclipse report, step 6 coverage full](assets/covtest_date4.png)
 
