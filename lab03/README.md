@@ -80,12 +80,18 @@ From this, we can conclude that 15% of instructions and 30% of branches aren't c
 
 For the rest of this lab, we'll use the Jacoco Eclipse plugin.<br>Here's our results again in Eclipse:
 
-![Jacoco Eclipse report](assets/covtest_computations.png)
+![Jacoco Eclipse report, computation coverage](assets/covtest_computations.png)
 
 **N.B.:** Interestingly, we obtain similar results, but not the exact same ones. Jacoco must work differently as a plugin than it does standalone, as even the total number of instructions is different in these reports (92 total instructions according to Jacoco Eclipse, 94 standalone). 
 
 <br><br><br>
 ### 3 — Initial `Date.java` Coverage
+
+Before changing anything in the `date` project, let's check the coverage of the given test suite:
+
+![Jacoco Eclipse report, initial date coverage](assets/covtest_date1.png)
+
+There's an interesting thing to note here: while the JUnit view (seen left) says all tests ran successfully, the coverage metrics show the tests didn't run *fully*. This is due to the way `assertThrows` and `expected=Exception` tests work (they do not have to run *fully* to run *successfully*, since they expect to be interrupted). I'll limit further screenshots to the coverage view exclusively from now on.
 
 <br><br><br>
 ### 4 — Improving `Date.java` Coverage
@@ -95,3 +101,5 @@ For the rest of this lab, we'll use the Jacoco Eclipse plugin.<br>Here's our res
 
 <br><br><br>
 ### 6 — Final `Date.java` Coverage & Analysis
+
+TODO: Add collapsible sections!
