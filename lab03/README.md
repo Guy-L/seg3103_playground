@@ -193,7 +193,7 @@ In the end, **100% instruction coverage of `Date.java` was achieved**, but one b
 
 1. **Style changes**. Various style changes were applied to improve code readability, such as the use of one-line ifs where applicable, removing redundant `this` keywords and more consistant spacing.
 
-2. **Storing `isLeap` and `isThirtyDayMonth` boolean fields**. Calculating whether the year is a leap year or the month a 30 day month several times over an object's lifetime is inefficient; these will now be calculated once during instanciation. `isLeapYear` and `isThirtyDayMonth` were removed and methods were changed to use these value instead. **N.B.:** `isEndOfMonth` could be replaced for a similar reason, but it does help code readability and is useless to calculate and store for objects not expected to call `nextDate`. 
+2. **Storing `isLeap` and `isThirtyDayMonth` boolean fields**. Calculating whether the year is a leap year or the month a 30 day month several times over an object's lifetime is inefficient; these will now be calculated once during instantiation. `isLeapYear` and `isThirtyDayMonth` were removed and methods were changed to use these value instead. **N.B.:** `isEndOfMonth` could be replaced for a similar reason, but it does help code readability and is useless to calculate and store for objects not expected to call `nextDate`. 
 
 3. **Refactoring `isEndOfMonth`**. Changes were made to make better use of the `return` statement and the ternary operator was introduced for readability purposes. 
 
