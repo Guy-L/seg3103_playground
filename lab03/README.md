@@ -91,7 +91,7 @@ Before changing anything in the `date` project, let's check the coverage of the 
 
 ![Jacoco Eclipse report, initial date coverage](assets/covtest_date1.png)
 
-There's an interesting thing to note here: while the JUnit view (seen left) says all tests ran successfully, the coverage metrics show the tests didn't run *fully*. This is due to the way `assertThrows` and `expected=Exception` tests work (they do not have to run *fully* to run *successfully*, since they expect to be interrupted). I'll limit further screenshots to the coverage view exclusively from now on.
+There's an interesting thing to note here: while the JUnit view (seen left) says all tests ran successfully, the coverage metrics show some tests didn't run *fully*. This is due to the way `assertThrows` and `expected=Exception` tests work (they do not have to run *fully* to run *successfully*, since they expect to be interrupted). I'll limit further screenshots to the coverage view exclusively from now on.
 
 <br><br><br>
 ### 4 — Improving `Date.java` Coverage
