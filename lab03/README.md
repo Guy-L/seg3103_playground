@@ -177,7 +177,7 @@ The coverage is about 80%. There's an interesting thing to note here: while the 
 
 6. **Adding test cases for `equals` in `DateMiscTest`**. To finish off, a few test cases were needed for when compared dates weren't equal. Since they didn't fit in with our other tests, these were also put in `DateMiscTest`. 
 
-In the end, **100% instruction coverage of `Date.java` was achieved**, but one branch was missed due to the above stated reason and cannot be covered.
+In the end, **100% instruction coverage of `Date.java` was achieved**, but one branch was missed due to the above stated reason and could not be covered.
 
 ![Jacoco Eclipse report, step 6 coverage](assets/covtest_date3.png)
 ![Jacoco Eclipse report, step 6 coverage full](assets/covtest_date4.png)
