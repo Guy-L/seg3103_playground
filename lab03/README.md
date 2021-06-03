@@ -73,14 +73,14 @@ The report was created in the `computation/report` folder and generated various 
 
 Here's the two most relevant files:
 
-![Jacoco HTML report summary](assets/html_jacoco1.png)
-![Jacoco HTML report detail](assets/html_jacoco2.png)
+![Jacoco HTML report summary](assets/html_jacoco_1.png)
+![Jacoco HTML report detail](assets/html_jacoco_2.png)
 
 From this, we can conclude that 15% of instructions and 30% of branches aren't covered, with the biggest misses being in the `catchesException` and `substract` methods (the latter not being covered at all). 
 
 For the rest of this lab, we'll use the Jacoco Eclipse plugin.<br>Here's our results again in Eclipse:
 
-![Jacoco Eclipse report, computation coverage](assets/covtest_computations.png)
+![Jacoco Eclipse report, computation coverage](assets/covtest_computation.png)
 
 **N.B.:** Interestingly, we obtain similar results, but not the exact same ones. Jacoco must work differently as a plugin than it does standalone, as even the total number of instructions is different in these reports (92 total instructions according to Jacoco Eclipse, 94 standalone). 
 
