@@ -50,6 +50,7 @@ $ java -jar lib/junit-platform-console-standalone-1.7.1.jar --class-path dist --
 
 ![Compile test, date](assets/date_run.png)
 
+All tests ran successfully. 
 
 <br><br><br>
 ### 2 — `Computations.java` Coverage
