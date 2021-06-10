@@ -52,4 +52,13 @@ class CalculatorTest {
 		assertEquals(Calculator.sum(333, 333), 0);
 		assertEquals(Calculator.sum(9999, 9999), 0);
 	}
+	
+	@Test
+	void testSumSamePrimes() {
+		assertEquals(Calculator.sum(2, 2), 2);
+		assertEquals(Calculator.sum(3, 3), 3);
+		assertEquals(Calculator.sum(5, 5), 5);
+		assertEquals(Calculator.sum(7, 7), 7);
+		assertEquals(Calculator.sum(257, 257), 257);
+	}
 }
