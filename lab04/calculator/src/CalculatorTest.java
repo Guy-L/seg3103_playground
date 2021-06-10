@@ -38,4 +38,9 @@ class CalculatorTest {
 	void testSumZero() {
 		assertEquals(Calculator.sum(0, 0), 0);
 	}
+	
+	@Test
+	void testSumOneTwo() {
+		assertEquals(Calculator.sum(1, 2), 2);
+	}
 }
