@@ -13,8 +13,7 @@ public class Calculator {
 	}
 	
 	public static int sum(int lhs, int rhs) {
-		if(lhs < 0) return 0;
-		
+
 		int sum = 0;
 		
 		for(int i = lhs; i <= rhs; i++) {
