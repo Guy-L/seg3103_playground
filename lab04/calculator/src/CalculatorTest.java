@@ -70,12 +70,12 @@ class CalculatorTest {
 		assertEquals(Calculator.sum(0, 23), 100);
 	}
 	
-	//@Test
-	//void testSumBothNegatives() {
-	//	assertEquals(Calculator.sum(-1, -2), 0);
-	//	assertEquals(Calculator.sum(-3, -3), 0);
-	//	assertEquals(Calculator.sum(-50, -150), 0);
-	//	assertEquals(Calculator.sum(-333, -3333), 0);
-	//}
+	@Test
+	void testSumBothNegatives() {
+		assertEquals(Calculator.sum(-1, -2), 0);
+		assertEquals(Calculator.sum(-3, -3), 0);
+		assertEquals(Calculator.sum(-50, -150), 0);
+		assertEquals(Calculator.sum(-333, -3333), 0);
+	}
 	
 }
