@@ -1,7 +1,7 @@
 public class Calculator {
 	
 	public static float opposite(float n) {
-		throw new RuntimeException("Stub");
+		return 0;
 	}
 	
 	public static float sum(float lhs, float rhs) {
