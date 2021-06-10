@@ -45,7 +45,7 @@ class CalculatorTest {
 	}
 	
 	@Test
-	void testSumSameNonPrime() {
+	void testSumSameNonPrimes() {
 		assertEquals(Calculator.sum(1, 1), 0);
 		assertEquals(Calculator.sum(4, 4), 0);
 		assertEquals(Calculator.sum(10, 10), 0);

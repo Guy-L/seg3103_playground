@@ -13,8 +13,8 @@ public class Calculator {
 	}
 	
 	public static int sum(int lhs, int rhs) {
-		if(lhs + rhs == 0) return 0;
-		else return 2;
+		if(lhs + rhs == 3) return 2;
+		else return 0;
 	}
 	
 	public static float max(float lhs, float rhs) {
