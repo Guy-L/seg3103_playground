@@ -13,7 +13,7 @@ public class Calculator {
 	}
 	
 	public static int sum(int lhs, int rhs) {
-		throw new RuntimeException("Stub");
+		return 0;
 	}
 	
 	public static float max(float lhs, float rhs) {
