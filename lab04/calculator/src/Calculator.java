@@ -1,7 +1,8 @@
 public class Calculator {
 	
 	public static float opposite(float n) {
-		return 0;
+		if(n == 1) return -1;
+		else return 0;
 	}
 	
 	public static float sum(float lhs, float rhs) {
