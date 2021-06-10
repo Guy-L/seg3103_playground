@@ -18,8 +18,8 @@ class CalculatorTest {
 	void testOppositeOfPositives() {
 		assertEquals(Calculator.opposite(6), -6);
 		assertEquals(Calculator.opposite(51), -15);
-		assertEquals(Calculator.opposite(307), -703);
 		assertEquals(Calculator.opposite(154), -451);
+		assertEquals(Calculator.opposite(307), -703);
 		assertEquals(Calculator.opposite(10000), -1);
 		assertEquals(Calculator.opposite(00093f), -39);
 	}
