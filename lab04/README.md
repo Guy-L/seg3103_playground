@@ -65,9 +65,9 @@ The idea is to make a custom calculator which uses strange alternative arithmeti
 	
 - **Calculating the opposite of a number**: the opposite of a number in our system is its reverse in decimal notation, times -1 (e.g. 51 = -15, 307 = -703, -54 = 45).
 	
-- **Calculating the sum of two positive numbers**: the sum of two numbers is the (regular) sum of all primes between the two numbers (e.g. 10+16 = 24 since 11 and 13 are between).
+- **Calculating the sum of two numbers**: the sum of two numbers is the (regular) sum of all primes between the two numbers (e.g. 10+16 = 24 since 11 and 13 are between).
 	
-- **Calculating the max between two positive numbers**: the max between two numbers is the number which has the most divisors (e.g. max(30, 32) = 30)
+- **Calculating the max between two numbers**: the max between two numbers is the number which has the most divisors (e.g. max(30, 32) = 30)
 	
 - **Calculating the product of two positive numbers**: the product of two numbers is the square root their concatenation (e.g. 2✕5 = 5, 5✕2 = 7.2111...)
 	

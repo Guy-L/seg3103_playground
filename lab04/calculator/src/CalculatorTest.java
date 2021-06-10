@@ -1,6 +1,5 @@
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 class CalculatorTest {
 
@@ -34,4 +33,8 @@ class CalculatorTest {
 		assertEquals(Calculator.opposite(-(int)00093f), 39);
 	}
 
+	@Test
+	void testSumZero() {
+		assertEquals(Calculator.sum(0, 0), 0);
+	}
 }

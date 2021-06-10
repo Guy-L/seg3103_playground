@@ -12,7 +12,7 @@ public class Calculator {
 		return (n < 0 ? 1 : -1) * Integer.parseInt(r);
 	}
 	
-	public static float sum(float lhs, float rhs) {
+	public static int sum(int lhs, int rhs) {
 		throw new RuntimeException("Stub");
 	}
 	
