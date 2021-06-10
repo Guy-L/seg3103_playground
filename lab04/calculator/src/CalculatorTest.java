@@ -8,5 +8,10 @@ class CalculatorTest {
 	void testOppositeZero() {
 		assertEquals(Calculator.opposite(0), 0);
 	}
+	
+	@Test
+	void testOppositeOne() {
+		assertEquals(Calculator.opposite(1), -1);
+	}
 
 }
