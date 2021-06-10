@@ -1,16 +1,13 @@
 public class Calculator {
 	
-	public static float opposite(float n) {
-		switch((int)n) {
-			case 0: return -0;
-			case 10000:
-			case 1: return -1;
-			case 6: return -6;
-			case 51: return -15;
-			case 154: return -451;
-			case 307: return -703; 
-			default: return -39;
-		}
+	public static int opposite(int n) {
+		String s = String.valueOf(n);
+		String r = "";
+		
+		for(int i = 0; i < s.length(); i++) 
+			r = s.charAt(i) + r;
+		
+		return -Integer.parseInt(r);
 	}
 	
 	public static float sum(float lhs, float rhs) {
