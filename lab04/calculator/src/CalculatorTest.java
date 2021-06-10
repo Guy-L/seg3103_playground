@@ -61,4 +61,21 @@ class CalculatorTest {
 		assertEquals(Calculator.sum(7, 7), 7);
 		assertEquals(Calculator.sum(257, 257), 257);
 	}
+
+	@Test
+	void testSumDifferentPositives() {
+		assertEquals(Calculator.sum(1, 10), 17);
+		assertEquals(Calculator.sum(10, 16), 24);
+		assertEquals(Calculator.sum(2, 3), 5);
+		assertEquals(Calculator.sum(0, 9), 100);
+	}
+	
+	//@Test
+	//void testSumBothNegatives() {
+	//	assertEquals(Calculator.sum(-1, -2), 0);
+	//	assertEquals(Calculator.sum(-3, -3), 0);
+	//	assertEquals(Calculator.sum(-50, -150), 0);
+	//	assertEquals(Calculator.sum(-333, -3333), 0);
+	//}
+	
 }
