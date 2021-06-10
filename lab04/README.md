@@ -82,7 +82,7 @@ I'll take things step by step using the TDD method, and hopefully these requirem
 
 <br>Well! I overestimated my time by quite a lot. In the end, I was able to complete the `opposite()` method to satisfaction and most of the `sum()` method; however the final desire (summing ANY two numbers) will not work due to two remaining issues: not correctly handling negative numbers, and requiring `RHS > LHS` for the method to work (which is not part of the specifications). The former would have been fixed by changing the `if(i==1) continue;` prime-checking corner case into `if(i<1) continue;`, the latter by checking which number is greater at the beginning and using that as the `for` loop's upper bound. Of course, I knew this from the get go, but the TDD approach required me to proceed more cautiously. Overall, I believe this (very exaggerated) approach is quite inefficient; the code I wrote in an hour with TDD would have taken me at most 15 minutes to produce normally. 
 	
-I wasn't sure how commits were to be grouped (chronologically or by type, so I did both):
+I wasn't sure how commits were to be grouped (chronologically or by type), so I did both:
 
 #### Chronologically
 ![Commit timeline](assets/timeline.png)
