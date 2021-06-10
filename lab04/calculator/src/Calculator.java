@@ -4,20 +4,12 @@ public class Calculator {
 		String s = String.valueOf(n);
 		String r = "";
 		
-		if(n >= 0) {
+		if(n < 0) s = s.substring(1);
 			
-			for(int i = 0; i < s.length(); i++) 
-				r = s.charAt(i) + r;
+		for(int i = 0; i < s.length(); i++) 
+			r = s.charAt(i) + r;
 			
-			return -Integer.parseInt(r);
-		} else {
-			s = s.substring(1);
-			
-			for(int i = 0; i < s.length(); i++) 
-				r = s.charAt(i) + r;
-			
-			return Integer.parseInt(r);
-		}
+		return (n < 0 ? 1 : -1) * Integer.parseInt(r);
 	}
 	
 	public static float sum(float lhs, float rhs) {
