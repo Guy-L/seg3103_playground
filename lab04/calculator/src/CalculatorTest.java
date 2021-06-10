@@ -85,4 +85,5 @@ class CalculatorTest {
 		assertEquals(Calculator.sum(-100, 10), 129);
 	}
 	
+	//Done
 }
