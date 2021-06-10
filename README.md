@@ -10,3 +10,4 @@
 * [Lab 1](lab01)
 * [Lab 2](lab02)
 * [Lab 3](lab03)
+* [Lab 4](lab04)
