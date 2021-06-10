@@ -67,7 +67,7 @@ class CalculatorTest {
 		assertEquals(Calculator.sum(1, 10), 17);
 		assertEquals(Calculator.sum(10, 16), 24);
 		assertEquals(Calculator.sum(2, 3), 5);
-		assertEquals(Calculator.sum(0, 9), 100);
+		assertEquals(Calculator.sum(0, 23), 100);
 	}
 	
 	//@Test
