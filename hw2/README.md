@@ -107,13 +107,13 @@ Since all branches of our program result in some statement being executed (there
 ## Question 2
 
 ### Question 2.1
-TODO
+See [commit #eed2f57](https://github.com/Guy-L/seg3103_playground/commit/eed2f578fc8ee05f22ca4fb2989cc47b37356bca).
 
 ### Question 2.2
-TODO
+See [commit #7d23272](https://github.com/Guy-L/seg3103_playground/commit/7d232727c8942ca472bfcaccedaff34f10ff1c9f).
 
 ### Question 2.3
-TODO
+See [commit #97b16d6](https://github.com/Guy-L/seg3103_playground/commit/97b16d6866ba6ff76981c7159b24c68aba5d0cc3).
 
 ### Question 2.4
-TODO
+See [commit #4736f21](https://github.com/Guy-L/seg3103_playground/commit/4736f21098d31c1761e7330a8646f61fc3dcddfc).
