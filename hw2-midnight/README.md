@@ -12,16 +12,16 @@
 ### Table of Contents  
 [System & Environment](#system--environment)  
 Answers:
-* **[Question 1]**()  
-	* [Question 1.1]()
-	* [Question 1.2]()
-	* [Question 1.3]()
-	* [Question 1.4]()
-* **[Question 2]**()  
-	* [Question 2.1]()
-	* [Question 2.2]()
-	* [Question 2.3]()
-	* [Question 2.4]()
+* **[Question 1](#question-1)** 
+	* [Question 1.1](#question-11)
+	* [Question 1.2](#question-12)
+	* [Question 1.3](#question-13)
+	* [Question 1.4](#question-14)
+* **[Question 2](#question-2)**
+	* [Question 2.1](#question-21)
+	* [Question 2.2](#question-22)
+	* [Question 2.3](#question-23)
+	* [Question 2.4](#question-24)
 
 <br><br><br>
 
@@ -36,7 +36,9 @@ Answers:
 <br><br><br>
 
 ## Question 1
-
+<details>
+<summary>Click to expand!</summary>
+	
 ### Question 1.1
 For `percentage_grade()`:
 ![Simplified flowchart, percent_grade](assets/scfg_percent.png)
@@ -102,20 +104,32 @@ I was able to obtain 100% statement coverage for `Grades.Calculator` according t
 To aid myself during the assignment, I also implemented both the Calculator code and a test suite [in Java](https://github.com/Guy-L/seg3103_playground/blob/master/hw2/grades_java%20(optional)/test/CalculatorTest.java) in order to run Jacoco against it, but I discovered that Jacoco does Condition/Branch coverage rather than simple Branch coverage, so I wasn't able to reach 100% branch coverage there. I could've done so by adding test cases for the different conditions of `if(avgHomework < 0.4 || avgExams < 0.4 || numLabs < 3)`, but this would've been irrelevant for our purposes.
 
 Since all branches of our program result in some statement being executed (there are no "empty branches"), we can deduce that we have reached 100% branch coverage by having 100% statement coverage.
-
+</details>
 
 <br><br><br>
 
 ## Question 2
-
+<details>
+<summary>Click to expand!</summary>
+	
 ### Question 2.1
 See [commit #eed2f57](https://github.com/Guy-L/seg3103_playground/commit/eed2f578fc8ee05f22ca4fb2989cc47b37356bca).
+Code compiled succesfully and statement coverage remained at 100%.
 
 ### Question 2.2
 See [commit #7d23272](https://github.com/Guy-L/seg3103_playground/commit/7d232727c8942ca472bfcaccedaff34f10ff1c9f).
+Code compiled succesfully and statement coverage remained at 100%.
 
 ### Question 2.3
 See [commit #97b16d6](https://github.com/Guy-L/seg3103_playground/commit/97b16d6866ba6ff76981c7159b24c68aba5d0cc3).
+Code compiled succesfully and statement coverage remained at 100%.
 
 ### Question 2.4
-See [commit #4736f21](https://github.com/Guy-L/seg3103_playground/commit/4736f21098d31c1761e7330a8646f61fc3dcddfc).
+**Refactor 1**: See [commit #4736f21](https://github.com/Guy-L/seg3103_playground/commit/4736f21098d31c1761e7330a8646f61fc3dcddfc).
+It's easy to see that the methods `letter_grade()` and `numeric_grade()` work very, very similarly. Their simplified flowcharts look identical, safe for the labels. At first, I considered hooking one up to the output of the other, but this would result in having to run `cond` twice (to convert one type of output to another), which is inefficient. I instead grouped all the similar code into one method called `get_mark_if_passed`, which simply either returns the mark that both method calculate, or `-999` (a signal value, well out of bounds) in the case of failure to participate. This way, the only work left to our original methods is their `cond` statement, which they both handle differently.
+	
+**Refactor 2**: See [commit #4c8d305](https://github.com/Guy-L/seg3103_playground/commit/4c8d30567d5d21beeacdbd0685c27bfb910dd36a).
+Finally, I removed all single-use variables. There's usually no need to allocate space for a variable if it is only used once; this use can be replaced by its initial value. It can sometime be helpful to do this anyways for code legibility purposes or if the variable's value will change from its initial value before being used - I, myself, was hesitant to remove `num_labs` due to reduced legibility. No line turned so long that it became illegible, and the number of lines was greatly reduced. In fact, the `percentage_grade()` method was crushed into a single line!
+	
+For both refactors, code compiled succesfully and statement coverage remained at 100%.
+</details>
