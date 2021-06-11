@@ -51,11 +51,11 @@ For `numeric_grade()`:
 
 **\*\*\***: While the `reject` method includes both a loop and a conditional, it still all belongs to one node according to [the teacher](https://piazza.com/class/knxg0zgsce5jp?cid=206). 
 
-**N.B.**: Since we do not have `return` statements (which "jump" back out of the method when read), it would be more accurate to show one and only one "Last" node which all my current "Last" nodes point to in the `letter_grade` and `numeric_grade` charts. For convenience sake and to save time, I did not do this. I hope this is okay.
+**N.B.**: Since we do not have `return` statements (which "jump" back out of the method when read), it would be more accurate to show one and only one "Last" node which all my current "Last" nodes point to in the `letter_grade` and `numeric_grade` charts. For convenience sake and to save time, I did not do this. I hope that's okay.
 
 <br><br>
 ### Question 1.2
-**Note:** I am assuming that since our focus is mainly on branch coverage, the *Conditions Covered* field should only indicate whether each decision node condition passed. For instance, A's condition passing (`Enum.count(homework) == 0`) is expressed as AT (for true), and it not passing (`Enum.count(homework) != 0`) as AF (for false).
+**Note:** I'm assuming that since our focus is mainly on branch coverage, the *Conditions Covered* field should only indicate whether each decision node condition passed. For instance, A's condition passing (`Enum.count(homework) == 0`) is expressed as AT (for true), and it not passing (`Enum.count(homework) != 0`) as AF (for false).
 
 For `percentage_grade()`:
 | # | Test Data | Expected Results | Conditions Covered | Branches Covered |
@@ -137,11 +137,11 @@ Code compiled succesfully and statement coverage remained at 100%.
 ### Question 2.4
 **Refactor 1**: See [commit #4736f21](https://github.com/Guy-L/seg3103_playground/commit/4736f21098d31c1761e7330a8646f61fc3dcddfc).
 	
-It's easy to see that the methods `letter_grade()` and `numeric_grade()` work very, very similarly. Their simplified flowcharts look identical, safe for the labels. At first, I considered hooking one up to the output of the other, but this would result in having to run `cond` twice (to convert one type of output to another), which is inefficient. I instead grouped all the similar code into one method called `get_mark_if_passed`, which simply either returns the mark that both method calculate, or `-999` (a signal value, well out of bounds) in the case of failure to participate. This way, the only work left to our original methods is their `cond` statement, which they both handle differently.
+It's easy to see that the methods `letter_grade()` and `numeric_grade()` work very, very similarly. Their simplified flowcharts look identical, safe for the labels. At first, I considered hooking one up to the output of the other, but this would result in having to run `cond` twice (to convert one type of output to another), which is inefficient. I instead grouped all the similar code into one method called `get_mark_if_passed`, which simply either returns the mark that both method calculate, or `-999` (a signal value, well out of bounds) in the case of failure to participate. This way, the only work left to our original methods is their `cond` statements, which they both handle differently. Finally, since the need for the `failed_to_participate?` method was gone (it would not be used more than once), that method was also removed.
 	
 **Refactor 2**: See [commit #4c8d305](https://github.com/Guy-L/seg3103_playground/commit/4c8d30567d5d21beeacdbd0685c27bfb910dd36a).
 
-Finally, I removed all single-use variables. There's usually no need to allocate space for a variable if it is only used once; this use can be replaced by its initial value. It can sometime be helpful to do this anyways for code legibility purposes or if the variable's value will change from its initial value before being used - I, myself, was hesitant to remove `num_labs` due to reduced legibility. No line turned so long that it became illegible, and the number of lines was greatly reduced. In fact, the `percentage_grade()` method was crushed into a single line!
+I removed all single-use variables. There's usually no need to allocate space for a variable if it is only used once; this use can be replaced by its initial value. It can sometime be helpful to do this anyways for code legibility purposes or if the variable's value will change from its initial value before being used - I, myself, was hesitant to remove `num_labs` due to reduced legibility. No line turned so long that it became illegible, and the number of lines was greatly reduced. In fact, the `percentage_grade()` method was crushed into a single line!
 	
 For both refactors, code compiled succesfully and statement coverage remained at 100%.
 </details>
