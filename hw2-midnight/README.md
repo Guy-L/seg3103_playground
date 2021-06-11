@@ -7,7 +7,7 @@
 | Professor | Andrew Forward, aforward@uottawa.ca |
 | Team | Guillaume Labasse 300132984 |
 
-**N.B.:** If submitting between 23h and midnight is considered late work, please grade [hw2](https://github.com/Guy-L/seg3103_playground/tree/master/hw2) instead.
+**Important:** If submitting between 23h and midnight is considered late work, please grade [hw2](https://github.com/Guy-L/seg3103_playground/tree/master/hw2) instead.
 
 ### Table of Contents  
 [System & Environment](#system--environment)  
