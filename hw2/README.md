@@ -43,7 +43,7 @@ For `letter_grade()`:
 ![Simplified flowchart, letter_grade](assets/scfg_letter.png)
 
 For `numeric_grade()`:
-![Simplified flowchart, numeric_grade](assets/scfg_numeric.png)
+![Simplified flowchart, numeric_grade](assets/scfg_num.png)
 
 **\*\*\***: While the `reject` method includes both a loop and a conditional, it still all belongs to one node according to [the teacher](https://piazza.com/class/knxg0zgsce5jp?cid=206). 
 
