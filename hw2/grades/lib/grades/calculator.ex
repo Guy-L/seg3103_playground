@@ -1,11 +1,4 @@
 defmodule Grades.Calculator do
-  def avg(%{list: list}) do
-	if Enum.count(list) == 0 do
-		0
-	else
-		Enum.sum(list) / Enum.count(list)
-	end
-  end
   
   def percentage_grade(%{homework: homework, labs: labs, midterm: midterm, final: final}) do
     avg_homework = avg(%{list: homework})
@@ -26,7 +19,7 @@ defmodule Grades.Calculator do
       |> Enum.reject(fn mark -> mark < 0.25 end)
       |> Enum.count()
 
-    if avg_homework < 0.4 || avg_exams < 0.4 || num_labs < 3 do
+    if failed_to_participate?(%{hw: avg_homework, ex: avg_exams, nlab: num_labs}) do
       "EIN"
     else
       mark = 0.2 * avg_labs + 0.3 * avg_homework + 0.2 * midterm + 0.3 * final
@@ -58,7 +51,7 @@ defmodule Grades.Calculator do
       |> Enum.reject(fn mark -> mark < 0.25 end)
       |> Enum.count()
 
-    if avg_homework < 0.4 || avg_exams < 0.4 || num_labs < 3 do
+    if failed_to_participate?(%{hw: avg_homework, ex: avg_exams, nlab: num_labs}) do
       0
     else
       mark = 0.2 * avg_labs + 0.3 * avg_homework + 0.2 * midterm + 0.3 * final
@@ -77,5 +70,21 @@ defmodule Grades.Calculator do
         :else -> 0
       end
     end
+  end
+  
+  def avg(%{list: list}) do
+	if Enum.count(list) == 0 do
+		0
+	else
+		Enum.sum(list) / Enum.count(list)
+	end
+  end
+  
+  def failed_to_participate?(%{hw: hw, ex: ex, nlab: nlab}) do
+	if hw < 0.4 || ex < 0.4 || nlab < 3 do
+		true
+	else
+		false
+	end
   end
 end
