@@ -47,8 +47,48 @@ For `numeric_grade()`:
 
 **\*\*\***: While the `reject` method includes both a loop and a conditional, it still all belongs to one node according to [the teacher](https://piazza.com/class/knxg0zgsce5jp?cid=206). 
 
+**N.B.**: Since we do not have `return` statements (which "jump" back out of the method when read), it would be more accurate to show one and only one "Last" node which all my current "Last" nodes point to in the `letter_grade` and `numeric_grade` charts. For convenience sake and to save time, I did not do this. I hope this is okay.
+
 ### Question 1.2
-TODO
+**Note:** I am assuming that since our focus is mainly on branch coverage, the *Conditions Covered* field should only indicate whether each decision node condition passed. For instance, A's condition passing (`Enum.count(homework) == 0`) is expressed as AT (for true), and it not passing (`Enum.count(homework) != 0`) as AF (for false).
+
+For `percentage_grade()`:
+| Test Case Number | Test Data | Expected Results | Conditions Covered | Branches Covered |
+| --- | --- | --- | --- | --- |
+| 1 | [0.8], [1,1,1], 0.7, 0.9 | 85 | AF, DF | C, F |
+| 2 | [], [], 0.3, 0.4 | 18 | AT, DT | B, E |
+
+For `letter_grade()`:
+| Test Case Number | Test Data | Expected Results | Conditions Covered | Branches Covered |
+| --- | --- | --- | --- | --- |
+| 1 |  [], [], 0, 0 | EIN                      | AT, DT, GT | B, E |
+| 2 |  [0.9], [1,1,1], 0.8, 0.9 | A+           | AF, DF, GF, L_A+T | C, F, L_A+ |
+| 3 |  [0.8], [1,1,1], 0.7, 0.9 | A            | AF, DF, GF, L_A+F, L_AT | C, F, L_A+, L_A |
+| 4 |  [0.8], [1,0.9,0.7], 0.7, 0.9 | A-       | AF, DF, GF, L_A+F, L_AF, L_B+T | C, F, L_A+, L_A, L_B+ |
+| 5 |  [0.7], [0.9,0.9,0.7], 0.7, 0.8 | B+     | AF, DF, GF, L_A+F, L_AF, L_B+F, L_BT | C, F, L_A+, L_A, L_B+, L_B |
+| 6 |  [0.8], [0.7,0.6,0.7], 0.6, 0.7 | B      | AF, DF, GF, L_A+F, L_AF, L_B+F, L_BT, ... | C, F, L_A+, L_A, L_B+, L_B, ... |
+| 7 |  [0.7], [0.7,0.6,0.7], 0.6, 0.7 | C+     | AF, DF, GF, L_A+F, L_AF, L_B+F, L_BT, ... | C, F, L_A+, L_A, L_B+, L_B, ... |
+| 8 |  [0.7], [0.7,0.5,0.7], 0.6, 0.5 | C      | AF, DF, GF, L_A+F, L_AF, L_B+F, L_BT, ... | C, F, L_A+, L_A, L_B+, L_B, ... |
+| 9 |  [0.5], [0.7,0.5,0.7], 0.6, 0.5 | D+     | AF, DF, GF, L_A+F, L_AF, L_B+F, L_BT, ... | C, F, L_A+, L_A, L_B+, L_B, ... |
+| 10 | [0.5], [0.7,0.2,0.7,0.5], 0.5, 0.5 | D  | AF, DF, GF, L_A+F, L_AF, L_B+F, L_BT, ... | C, F, L_A+, L_A, L_B+, L_B, ... |
+| 11 | [0.5], [0.4,0.4,0.4], 0.5, 0.5 | E      | AF, DF, GF, L_A+F, L_AF, L_B+F, L_BT, ... | C, F, L_A+, L_A, L_B+, L_B, ... |
+| 12 | [0.4], [0.4,0.4,0.4], 0.5, 0.3 | F      | AF, DF, GF, L_A+F, L_AF, L_B+F, L_BT, ... | C, F, L_A+, L_A, L_B+, L_B, ... |
+
+For `numeric_grade()`:
+| Test Case Number | Test Data | Expected Results | Conditions Covered | Branches Covered |
+| --- | --- | --- | --- | --- |
+| 1 |  [], [], 0, 0 | 0                        | AT, DT, GT | B, E |
+| 2 |  [0.9], [1,1,1], 0.8, 0.9 | 10           | AF, DF, GF, N10T | C, F, N10 |
+| 3 |  [0.8], [1,1,1], 0.7, 0.9 | 9            | AF, DF, GF, N10F, N9T | C, F, N10, N9 |
+| 4 |  [0.8], [1,0.9,0.7], 0.7, 0.9 | 8        | AF, DF, GF, N10F, N9F, N8T | C, F, N10, N9, N7 |
+| 5 |  [0.7], [0.9,0.9,0.7], 0.7, 0.8 | 7      | AF, DF, GF, N10F, N9F, N8F, N7T | C, F, N10, N9, N8, N7 |
+| 6 |  [0.8], [0.7,0.6,0.7], 0.6, 0.7 | 6      | AF, DF, GF, N10F, N9F, N8F, N7F, ... | C, F, N10, N9, N8, N7, ... |
+| 7 |  [0.7], [0.7,0.6,0.7], 0.6, 0.7 | 5      | AF, DF, GF, N10F, N9F, N8F, N7F, ... | C, F, N10, N9, N8, N7, ... |
+| 8 |  [0.7], [0.7,0.5,0.7], 0.6, 0.5 | 4      | AF, DF, GF, N10F, N9F, N8F, N7F, ... | C, F, N10, N9, N8, N7, ... |
+| 9 |  [0.5], [0.7,0.5,0.7], 0.6, 0.5 | 3      | AF, DF, GF, N10F, N9F, N8F, N7F, ... | C, F, N10, N9, N8, N7, ... |
+| 10 | [0.5], [0.7,0.2,0.7,0.5], 0.5, 0.5 | 2  | AF, DF, GF, N10F, N9F, N8F, N7F, ... | C, F, N10, N9, N8, N7, ... |
+| 11 | [0.5], [0.4,0.4,0.4], 0.5, 0.5 | 1      | AF, DF, GF, N10F, N9F, N8F, N7F, ... | C, F, N10, N9, N8, N7, ... |
+| 12 | [0.4], [0.4,0.4,0.4], 0.5, 0.3 | 0      | AF, DF, GF, N10F, N9F, N8F, N7F, ... | C, F, N10, N9, N8, N7, ... |
 
 ### Question 1.3
 TODO
