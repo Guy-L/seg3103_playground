@@ -1,11 +1,7 @@
 defmodule Grades.Calculator do
   
   def percentage_grade(%{homework: homework, labs: labs, midterm: midterm, final: final}) do
-    avg_homework = avg(%{list: homework})
-    avg_labs = avg(%{list: labs})
-
-	mark = calculate_grade(%{lab: avg_labs, hw: avg_homework, mdt: midterm, fin: final})
-    round(mark * 100)
+	round(100 * calculate_grade(%{lab: avg(%{list: labs}), hw: avg(%{list: homework}), mdt: midterm, fin: final}))
   end
 
   def letter_grade(%{homework: homework, labs: labs, midterm: midterm, final: final}) do
@@ -59,19 +55,11 @@ defmodule Grades.Calculator do
   
   def get_mark_if_passed(%{homework: homework, labs: labs, midterm: midterm, final: final}) do
 	avg_homework = avg(%{list: homework})
-    avg_labs = avg(%{list: labs})
 
-    avg_exams = (midterm + final) / 2
-
-    num_labs =
-      labs
-      |> Enum.reject(fn mark -> mark < 0.25 end)
-      |> Enum.count()
-
-    if avg_homework < 0.4 || avg_exams < 0.4 || num_labs < 3 do
+    if avg_homework < 0.4 || ((midterm + final) / 2) < 0.4 || labs |> Enum.reject(fn mark -> mark < 0.25 end) |> Enum.count() < 3 do
       -999
     else
-	  calculate_grade(%{lab: avg_labs, hw: avg_homework, mdt: midterm, fin: final})
+	  calculate_grade(%{lab: avg(%{list: labs}), hw: avg_homework, mdt: midterm, fin: final})
     end
   end
 end
