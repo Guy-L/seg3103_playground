@@ -44,7 +44,7 @@ For `percentage_grade()`:
 ![Simplified flowchart, percent_grade](assets/scfg_percent.png)
 
 For `letter_grade()`:
-![Simplified flowchart, letter_grade](assets/scfg_letter.png)
+![Simplified flowchart, letter_grade](assets/scfg_letter2.png)
 
 For `numeric_grade()`:
 ![Simplified flowchart, numeric_grade](assets/scfg_num.png)
