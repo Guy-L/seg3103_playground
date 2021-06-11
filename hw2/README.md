@@ -94,7 +94,7 @@ For `numeric_grade()`:
 Please see [`calculator_test.exs`](https://github.com/Guy-L/seg3103_playground/blob/master/hw2/grades/test/grades/calculator_test.exs).
 
 ### Question 1.4
-I was able to obtain 100% statement coverage according to ExUnit:
+I was able to obtain 100% statement coverage for `Grades.Calculator` according to ExUnit:
 ![Coverage](assets/coverage.png)
 
 To aid myself during the assignment, I also implemented both the Calculator code and a test suite [in Java](https://github.com/Guy-L/seg3103_playground/blob/master/hw2/grades_java%20(optional)/test/CalculatorTest.java) in order to run Jacoco against it, but I discovered that Jacoco does Condition/Branch coverage rather than simple Branch coverage, so I wasn't able to reach 100% branch coverage there. I could've done so by adding test cases for the different conditions of `if(avgHomework < 0.4 || avgExams < 0.4 || numLabs < 3)`, but this would've been irrelevant for our purposes.
