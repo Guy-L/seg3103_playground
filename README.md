@@ -16,4 +16,5 @@
 
 ### Homework
 
-* [Homework 2](hw2)
+* [Homework 2 (most recent version, done before midnight)](hw2-midnight)
+* [Homework 2 (old version, done before 11pm)](hw2)
