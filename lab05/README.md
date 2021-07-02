@@ -12,6 +12,7 @@
 Lab Proceedings:
 * [1 — Running Things](#1--running-things)  
 * [2 — Running the Site & Stubs]()  
+* [3 — Using Assignment 2 Code & Observations]()  
 
 <br><br><br>
 
@@ -56,6 +57,9 @@ All tests ran successfully.
 
 ### 2 — Running the Site & Stubs
 
+<details>
+<summary>Click to expand!</summary>
+
 After doing the setup as described by the slides, I run:
 
 ```bash
@@ -70,9 +74,29 @@ As expected, clicking the Calculate button causes server-side errors due to unde
 
 ![Site errors](assets/site_error.png)
 
-To fix these errors, I implement method stubs in [`calculator.ex`]():
+To fix these errors, I implement method stubs in [`calculator.ex`](https://github.com/Guy-L/seg3103_playground/commit/c26195b25a8fa4a73ccff39f64c10f2f42fc4cda#diff-68c01fac5a076d8f3fe2835cdfd8c3f0299804dca4b6e4b3e0f51c7ef062376b):
 
 ![Stubs](assets/code_stubs.png)
 ![Running with stubs](assets/site_stubs.gif)
+</details>
 
+<br><br><br>
+
+### 3 — Using Assignment 2 Code & Observations
+
+I then substitute in my refactored Assignment 2 code:
+
+![Assignment 2 code](assets/code_assignment.png)
+
+After restarting the site, clicking the Calculate button yields a new error:
+
+![Site error w/ assignment 2 code](assets/site_error_final.png)
+
+More specifically, we see an ArithmeticError which occurs on this line:
+
+```
+	Enum.sum(list) / Enum.count(list)
+```
+
+It's hard to tell from the Elixir error syntax, but it seems the error specifically occurs when attempting to sum the provided list. From the stack trace, we can tell that this list is the Homework grades list, since its average is calculated on line 57. I conclude that there must be a fault with the code responsible for calling the calculator methods with the provided value, which either sends an empty list or an otherwise invalid one. We did not observe these errors when working with stubs as the input values were completely ignored (as warned by Elixir in the gif above).
  
