@@ -39,7 +39,7 @@ $ mix test
 
 ![Compile test, grades](assets/grades_run.png)
 
-I had a lot of difficulties figuring out how to do this next part as the slides gave no precise indications; I had to ask for help. One of the libraries necessary to run these tests from the command line, Objenesis, was never mentioned for instance (though it was included).
+I had a lot of difficulties figuring out how to do this next part as the slides gave no precise indications; I had to ask for help. For example, one of the libraries necessary to run these tests from the command line, Objenesis, was never mentioned (though it was included).
 For `twitter`:
 
 ``` bash
@@ -68,4 +68,11 @@ And I can see the site up on the port specified by `config/dev.exs`:
 
 As expected, clicking the Calculate button causes server-side errors due to undefined functions:
 
-![Site running](assets/site_error.png)
+![Site errors](assets/site_error.png)
+
+To fix these errors, I implement method stubs in [`calculator.ex`]():
+
+![Stubs](assets/code_stubs.png)
+![Running with stubs](assets/site_stubs.gif)
+
+ 
