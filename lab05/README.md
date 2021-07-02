@@ -11,8 +11,8 @@
 [System & Environment](#system--environment)  
 Lab Proceedings:
 * [1 — Running Things](#1--running-things)  
-* [2 — Running the Site & Stubs](2--running-the-site--stubs)  
-* [3 — Using Assignment 2 Code & Observations](3--using-assignment-2-code--observations)  
+* [2 — Running the Site & Stubs](#2--running-the-site--stubs)  
+* [3 — Using Assignment 2 Code & Observations](#3--using-assignment-2-code--observations)  
 
 <br><br><br>
 
