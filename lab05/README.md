@@ -13,8 +13,8 @@ Lab Proceedings:
 * [1 — Running Things](#1--running-things)  
 * [A1 — Running the Site & Stubs](#A1--running-the-site--stubs)  
 * [A2 — Using Assignment 2 Code & Observations](#A2--using-assignment-2-code--observations)  
-* [B1 — Implementing the Test Cases]()  
-* [B2 — Fixing `isMentionned`]()  
+* [B1 — Implementing the Test Cases](#b1--implementing-the-test-cases)  
+* [B2 — Fixing `isMentionned`](#b2--fixing-ismentionned)  
 
 <br><br><br>
 
@@ -110,6 +110,9 @@ It's hard to tell from the Elixir error syntax, but it seems the error specifica
  
 ### B1 — Implementing the Test Cases
 
+<details>
+<summary>Click to expand!</summary>
+
 I first implement the test cases as described by the comments using partial mock objects:
 
 ![Test cases code](assets/code_testcases.png)
@@ -128,9 +131,14 @@ public boolean isMentionned(String name) {
 Firstly, this method cannot handle null `tweet`s as it will attempt to call a String method no matter what, causing a `NullPointerException`. 
 Secondly, this method cannot handle substring matches and will return true if it finds *any* match, even if this match is part of another mention.
 Finally, we can randomly see the `actual_call` test failing as it uses the real implementation of `loadTweet`, which functions randomly. I believe this test case is only here to showcase the difference between actual calls and mock calls (rather than an actual program specification), thus I will not attempt to make it pass consistently. 
+</details>
 
+<br><br><br>
 
 ### B2 — Fixing `isMentionned`
+
+<details>
+<summary>Click to expand!</summary>
 
 To fix these issues, here is my new `isMentionned()` code:
 
@@ -146,8 +154,10 @@ public boolean isMentionned(String name) {
 }
 ```
 
-The code now instantly returns false is a null tweet is obtained. It also properly considers the entire "mention" substring by comparing the entire string starting after the @ symbol (and ending after the next space, if any) to the given name. 
+This implementation instantly returns false is a null tweet is obtained. It also properly considers the entire "mention" substring by comparing the entire string starting after the @ symbol (and ending after the next space, if any) to the given name. 
 
 ![Test cases final output](assets/tc_output2.png)
 
 The tests now pass succesfully. 
+</details>
+<br><br><br>
