@@ -13,6 +13,7 @@
 * [Lab 2](lab02)
 * [Lab 3](lab03)
 * [Lab 4](lab04)
+* [Lab 5](lab05)
 
 ### Homework
 
