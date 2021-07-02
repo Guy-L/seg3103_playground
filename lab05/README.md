@@ -11,8 +11,8 @@
 [System & Environment](#system--environment)  
 Lab Proceedings:
 * [1 — Running Things](#1--running-things)  
-* [2 — Running the Site & Stubs]()  
-* [3 — Using Assignment 2 Code & Observations]()  
+* [2 — Running the Site & Stubs](2--running-the-site--stubs)  
+* [3 — Using Assignment 2 Code & Observations](3--using-assignment-2-code--observations)  
 
 <br><br><br>
 
@@ -84,7 +84,10 @@ To fix these errors, I implement method stubs in [`calculator.ex`](https://githu
 
 ### 3 — Using Assignment 2 Code & Observations
 
-I then substitute in my refactored Assignment 2 code:
+<details>
+<summary>Click to expand!</summary>
+
+I then [substitute in](https://github.com/Guy-L/seg3103_playground/blob/98647f9a1106d71cc617d25e6cc8445f13530c92/lab05/grades/lib/grades/calculator.ex) my refactored Assignment 2 code:
 
 ![Assignment 2 code](assets/code_assignment.png)
 
@@ -99,4 +102,7 @@ More specifically, we see an ArithmeticError which occurs on this line:
 ```
 
 It's hard to tell from the Elixir error syntax, but it seems the error specifically occurs when attempting to sum the provided list. From the stack trace, we can tell that this list is the Homework grades list, since its average is calculated on line 57. I conclude that there must be a fault with the code responsible for calling the calculator methods with the provided value, which either sends an empty list or an otherwise invalid one. We did not observe these errors when working with stubs as the input values were completely ignored (as warned by Elixir in the gif above).
+</details>
+
+<br><br><br>
  
