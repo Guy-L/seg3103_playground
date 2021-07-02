@@ -154,7 +154,7 @@ public boolean isMentionned(String name) {
 }
 ```
 
-This implementation instantly returns false is a null tweet is obtained. It also properly considers the entire "mention" substring by comparing the entire string starting after the @ symbol (and ending after the next space, if any) to the given name. 
+This implementation instantly returns false if a null tweet is obtained. It also properly considers the entire "mention" substring by comparing the string starting after the @ symbol (and ending after the next space, if any) to the given name. 
 
 ![Test cases final output](assets/tc_output2.png)
 
