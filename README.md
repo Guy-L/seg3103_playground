@@ -14,8 +14,9 @@
 * [Lab 3](lab03)
 * [Lab 4](lab04)
 * [Lab 5](lab05)
+* [Lab 6](lab06)
 
 ### Homework
 
-* [Homework 2 (most recent version, done before midnight)](hw2-midnight)
-* [Homework 2 (old version, done before 11pm)](hw2)
+* [Homework 2](hw2-midnight)
+* [Homework 3](hw3)
