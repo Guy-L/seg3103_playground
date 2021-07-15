@@ -10,7 +10,7 @@
 ### Table of Contents  
 [System & Environment](#system--environment)  
 Lab Proceedings:
-* [1 — Running Things](#1--running-things)  
+* [1 — Setting Up](#1--setting-up)  
 * [2 — Writing a Selenium Test](#2--writing-a-selenium-test)  
 <br><br><br>
 
@@ -26,7 +26,7 @@ Lab Proceedings:
 
 <br><br><br>
 
-### 1 — Running Things
+### 1 — Setting Up
 
 <details>
 <summary>Click to expand!</summary>
