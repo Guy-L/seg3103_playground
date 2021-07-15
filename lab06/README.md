@@ -40,11 +40,11 @@ Let's then compile the project:
 
 ![Setup, compilation](assets/mvn_compile.png)
 
-Then we package the application: 
+Then we package the application into a `.jar` file: 
 
 ![Setup, packaging](assets/mvn_package.png)
 
-Finally, let's now run our newly packaged application: 
+Let's now run our newly packaged application: 
 
 ![Setup, running app](assets/project_run.png)
 
