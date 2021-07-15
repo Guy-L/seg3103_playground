@@ -6,6 +6,7 @@ import org.junit.jupiter.api.*;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -52,7 +53,7 @@ class ExampleSeleniumTest {
     server.destroy();
   }
 
-  @Test
+  /*@Test
   void test1() {
     WebElement element = driver.findElement(By.id("title"));
     String expected = "YAMAZONE BookStore";
@@ -78,5 +79,18 @@ class ExampleSeleniumTest {
 
   private String[] getWords(String s) {
     return s.split("\\s+");
+  }*/
+  
+  @Test
+  public void orderingUpdatingTest(){
+	  driver.findElement(By.id("searchBtn")).click();
+	  driver.findElement(By.id("order-hall001")).click();
+	  driver.findElement(By.id("order-hall002")).click(); //we will remove this item before checkout
+	  driver.findElement(By.id("order-lewis001")).click(); //we will order two of this item
+	  driver.findElement(By.id("cartLink")).click();
+	  driver.findElement(By.id("hall002")).sendKeys("\b0" + Keys.TAB + Keys.ENTER);
+	  driver.findElement(By.id("lewis001")).sendKeys("\b2" + Keys.TAB + Keys.ENTER + Keys.TAB + Keys.ENTER);
+	  assertEquals("$104.22", driver.findElement(By.id("order_total")).getText());
+	  //(expected value obtained from going through the user story manually beforehand
   }
 }

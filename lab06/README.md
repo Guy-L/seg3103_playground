@@ -75,5 +75,27 @@ Note that ~~since my machine was a bit too slow, I had to run `mvn test` *while*
 <details>
 <summary>Click to expand!</summary>
 
-blah
+<br>For this part, I have to choose a requirement from the provided document to convert into a Selenium test. Just to make sure, I chose to do a few requirements, going through a standard user story of ordering books and viewing the completed order. These requirements are, in order: **F2.2**, **F3**, **F4**, **F5**, **F5.1** & **F6**. Taking inspiration from other provided tests and iteratively improving/fixing my code, I write this test:
+
+```java
+@Test
+public void orderingUpdatingTest(){
+	driver.findElement(By.id("searchBtn")).click();
+	driver.findElement(By.id("order-hall001")).click();
+	driver.findElement(By.id("order-hall002")).click(); //we will remove this item before checkout
+	driver.findElement(By.id("order-lewis001")).click(); //we will order two of this item
+	driver.findElement(By.id("cartLink")).click();
+	driver.findElement(By.id("hall002")).sendKeys("\b0" + Keys.TAB + Keys.ENTER);
+	driver.findElement(By.id("lewis001")).sendKeys("\b2" + Keys.TAB + Keys.ENTER + Keys.TAB + Keys.ENTER);
+	assertEquals("$104.22", driver.findElement(By.id("order_total")).getText());
+	//(expected value obtained from going through the user story manually beforehand
+}
+```
+
+I run `mvn test` one final time:
+
+![Testing new reqs](assets/mvn_test2.png)
+
+Note: other Selenium tests have been commented out.<br>
+I see the webdriver going through the steps as intended, and the test passes succesfully.<br>Have a great day!
 </details>
