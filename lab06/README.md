@@ -64,7 +64,7 @@ Finally, I run `mvn test`:
 ![Setup, testing](assets/mvn_test.png)
 
 All tests ran successfully.<br>
-Note that since my machine was a bit too slow, I had to run `mvn test` *while* running the server in another terminal - the test program did not finish creating a server quickly enough. Even when doing this, tests would not pass when using the Gecko driver, so despite Firefox being my preferred browser, I will be using Chrome. 
+Note that ~~since my machine was a bit too slow, I had to run `mvn test` *while* running the server in another terminal - the test program did not finish creating a server quickly enough~~ I also had to add `.inheritIO()` to the test program's ProcessBuilder in order to run it correctly. Even when doing this, tests would not pass when using the Gecko driver, so despite Firefox being my preferred browser, I will be using Chrome. 
 
 </details>
 
