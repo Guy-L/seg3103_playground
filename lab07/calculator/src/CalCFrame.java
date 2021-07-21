@@ -34,26 +34,31 @@ class CalCFrame extends JFrame implements ActionListener
                       num1 = 0.0, 
                       num2 = 0.0, 
                       num3 = 0.0;
-  private final int   ADD=1,        // integer constants representing operators
-                      SUB = 2, 
-                      MULT = 3, 
-                      DIVI = 4, 
-                      POW = 5, 
-                      SQRT = 6;
- private boolean      firstpress = true,  //determines first button press
+  private static final int ADD=1,        // integer constants representing operators
+                           SUB = 2,      // fixing bugs #P-5 to #P-10
+                           MULT = 3, 
+                           DIVI = 4, 
+                           POW = 5, 
+                           SQRT = 6;
+  private boolean     firstpress = true,  //determines first button press
                       morenums = false,   //"" if more numbers are being pressed
                       equals = false,     //"" if equal button has been pressed
                       clearscreen = false, //clears screen
                       decnumber = false,  //"" if a user entered a float
                       doubleclick = false; //"" if mouse was doubleclicked
  
+ 
+ private static class CustomWindowAdapter extends WindowAdapter {
+ 	public void windowClosing(WindowEvent e) {
+        System.exit(0);
+    }
+ }
+
 public CalCFrame(String title) {
      
     super(title);
-    addWindowListener(new WindowAdapter() {
-      public void windowClosing(WindowEvent e) {
-      System.exit(0);
-    }});
+	setVisible(true); //fixing bug #BP-2 (moved from Main.java)
+    addWindowListener(new CustomWindowAdapter()); //fixing bug #P-1 
 
     buttonfont = new Font( "Courier", Font.PLAIN, 12 );
     setBackground( Color.lightGray );
@@ -71,26 +76,10 @@ public CalCFrame(String title) {
     buttons[i].setFont( buttonfont );
     buttons[i].addActionListener( this );
     
-    if ( i <= 2 )
-        getContentPane().add( buttons[i] );
-    else if ( i >= 3 && i <= 7)
-        getContentPane().add( buttons[i] );
-    else if ( i >=8 && i <= 12 )
-        getContentPane().add( buttons[i] );
-    else if ( i >= 13 && i <= 17 )
-        getContentPane().add( buttons[i] );
-    else
-        getContentPane().add( buttons[i] );
+    getContentPane().add( buttons[i] ); //fixing bug #DC-1 & #DC-3 to #DC-5
        
-    if ( i == 2 )
-        getContentPane().add( new JLabel( "  " ) );
-    else if ( i == 7 )
-        getContentPane().add( new JLabel( "  " ) );
-    else if ( i == 12 )
-        getContentPane().add( new JLabel( "  " ) );
-    else if ( i == 17 )
-        getContentPane().add( new JLabel( "  " ) );
-          
+	if (i == 2 || i == 7 || i == 12 || i == 17)   
+		getContentPane().add(new JLabel("  "));
     }     
    buttons[15].setForeground( Color.red ); 
    result.setBackground( Color.white );          
@@ -269,7 +258,7 @@ public void processNumbers() {
       equals = false;   // equals is set to false to allow additional input    
   } // end if    
     else 
-      num1 = Double.valueOf( input ).doubleValue();  // converts a string number to double
+      num1 = Double.parseDouble(input); // converts a string number to double; fixing bug #P-3
      
       oldoper =  oper;                  // store current operator to oldoper
       
@@ -286,7 +275,7 @@ public void processNumbers() {
     // be calculated
     else if ( !morenums ) {      
      
-      num2 = Double.valueOf( input ).doubleValue();           //converts second num to double
+      num2 = Double.parseDouble(input);			 //converts second num to double; fixing bug #P-4.3
       answer = calculate( oldoper, num1, num2 ); //calculate num1 and num2 with   
       showAnswer( Double.toString( answer) );   //the past operator
       newoper = oper;                            //store current operator to
@@ -301,7 +290,7 @@ public void processNumbers() {
   
     // if more than two numbers are being inputted to calculate, this "if" block
     // is accessed
-    else if (morenums) { 
+    else { //fixing bug #DC-6
       
       if ( equals ) {
        
@@ -310,7 +299,7 @@ public void processNumbers() {
         firstpress = true;  // if equals is pressed set firstpress to false
     } // end if             
     
-      num3 = Double.valueOf( input ).doubleValue();
+      num3 = Double.parseDouble(input); //fixing bug #P-4.7
       answer = calculate( newoper, answer, num3 );      
       showAnswer( Double.toString(answer) );
       
@@ -344,7 +333,11 @@ public double calculate( int oper, double number1, double number2 )
             break;
           case SQRT:
             answer = Math.sqrt( number1 );
-            break;      
+            break; 
+          default: //should never happen; fixing bug #DC-2
+			clearScreen();
+			System.out.println("Calculate called without operator -> investigate!");
+			break;
       } // end switch  
       
      return answer;     
@@ -357,7 +350,7 @@ public void showAnswer( String s )
 {
     double answer;
     
-    answer = Double.valueOf(s).doubleValue();
+    answer = Double.parseDouble(s); //fixing bug #P-4
     if ( decnumber )    
     result.setText( Double.toString(answer) );
     else
@@ -370,7 +363,7 @@ public void showAnswer( String s )
 //value.  If doubleclick is true, the program ignores the input
 //==============================================================================
 public boolean clickCheck( String s ) {
-  if ( s == "" )
+  if (s.isEmpty()) //fixing bug #BP-1
     doubleclick = true;
   else 
     doubleclick = false;
