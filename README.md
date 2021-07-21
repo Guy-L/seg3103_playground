@@ -18,6 +18,7 @@
 
 ### Homework
 
-* [Homework 3 (most recent version, done before midnight)](hw3-midnight)
+* [Homework 3 (most recent version, finished at [time here])](hw3-final)
+* [Homework 3 (interim version, done before midnight)](hw3-midnight)
 * [Homework 3 (old version, done before 11pm)](hw3)
 * [Homework 2](hw2-midnight)
