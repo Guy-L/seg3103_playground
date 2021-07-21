@@ -70,7 +70,7 @@ $ java -jar ./lib/spotbugs/lib/spotbugs.jar
 Here is the information I've entered to setup the SpotBugs project:
 ![Spotbugs project setup](assets/sb_project.png)
 
-Here is SpotBugs, mid-analysis:
+Here is SpotBugs, mid-analysis:<br>
 ![Spotbugs analyzing](assets/sb_analysis.png)
 
 And finally, here are our results:
@@ -78,11 +78,11 @@ And finally, here are our results:
 
 Just like in the Lab Recording, we find **18 bugs**: **2** in "Bad Practice", **10** in "Performance" and **6** in "Dodgy Code".<br>These being:
 
-* **Bad Practices**
+* **Bad Practices (BP)**
  1. A string comparison that doesn't use `equals()` (address comparison rather than content).
  2. Threading issues risk created from calling a method in the wrong thread.
-* **Performance**
- 1. An inner class does not need to store reference to outer class, can be changed to a named static inner class.
+* **Performance (P)**
+ 1. An inner class does not need to store its reference to the outer class, can be changed to a named static inner class.
  2. A testing method is never used and can be removed.
  3. Useless creation of a boxed primitive (i.e., "`Integer`" or "`Double`" objects) to read value from string.
  4. Same as above.
@@ -92,7 +92,7 @@ Just like in the Lab Recording, we find **18 bugs**: **2** in "Bad Practice", **
  8. Same as above.
  9. Same as above.
  10. Same as above.
-* **Dodgy Code**
+* **Dodgy Code (DC)**
  1. Two branches in a conditinal share the same code and can be unified.
  2. A switch statement is missing its `default` case.
  3. An evaluation in a conditional is redundant based off prior evaluations.
@@ -115,7 +115,7 @@ Just like in the Lab Recording, we find **18 bugs**: **2** in "Bad Practice", **
 <table>
   <tr>
     <td>
-      Bug #
+      #
     </td>
     <td>
       Before
@@ -335,7 +335,7 @@ else {</pre>
     </td>
 </table>
 
-**Note**: Two additional performance bugs only showed up after fixing bugs P-3 and P-4; I've added them to the table under the name "P-4.3" and "P-4.7". They were the same type of error as P-3 and P-4.
+**Note**: Two additional performance bugs only showed up after fixing bugs P-3 and P-4; I've added them to the table under the names "P-4.3" and "P-4.7". They were the same type of error as P-3 and P-4.
 
 Let's now run SpotBugs again:
 ![Spotbugs results (second time)](assets/sb_results2.png)
@@ -365,6 +365,7 @@ I made sure to run SpotBugs once more after making this change:
 ![Spotbugs results (third time)](assets/sb_results3.png)
 
 The project remained at 0 bugs.
+<br>I also found many indentation issues, but chose not to fix most of them to make it easier to view my changes.
 <br>Have a great day!
 </details>
 
