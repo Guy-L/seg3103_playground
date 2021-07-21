@@ -65,7 +65,7 @@ class SeleniumTest {
   
   @Test
   public void F1PosTest(){
-    F8PosTest(); //login as admin
+      F8PosTest(); //login as admin
 	  driver.findElement(By.id("addBook-category")).sendKeys("a");
 	  driver.findElement(By.id("addBook-id")).sendKeys(uniqueID);
 	  driver.findElement(By.id("addBook-title")).sendKeys(uniqueID);
@@ -73,7 +73,7 @@ class SeleniumTest {
 	  driver.findElement(By.id("longDescription")).sendKeys("a");
 	  driver.findElement(By.id("cost")).sendKeys("1");
 	  driver.findElement(By.name("addBook")).click();
-	  assertEquals(true, driver.getPageSource().contains("Successfully added book"));
+	  assertEquals("Successfully added book", driver.findElement(By.tagName("h2")).getText());
   }
   
   @Test
@@ -89,15 +89,16 @@ class SeleniumTest {
   
   @Test
   public void F21PosTest(){
-	  driver.findElement(By.id("searchBtn")).click();
-    if(!driver.getPageSource().contains(uniqueID))
+	  driver.findElement(By.id("searchBtn")).click();  
+      if(!driver.getPageSource().contains(uniqueID))
 	      F1PosTest(); //add the uniqueID book if it wasn't here already
-	  
+ 
 	  driver.findElement(By.id("search")).sendKeys("a");
 	  driver.findElement(By.id("searchBtn")).click();
 	  assertEquals("We currently have the following items in category 'a'", driver.findElement(By.tagName("h1")).getText());
 	  
 	  //F1PosTest() requires its book not to already exist to pass, so we must delete it
+	  if(driver.findElements(By.cssSelector("input[value='Sign out']")).isEmpty()) F8PosTest(); //if not signed in, sign in
 	  removeBook(uniqueID);
 	  assertEquals(false, driver.getPageSource().contains(uniqueID));
   }
@@ -117,10 +118,12 @@ class SeleniumTest {
   
   @Test
   public void F22NegTest(){
-    F8PosTest(); //login as admin
+      F8PosTest(); //login as admin
 	  driver.findElement(By.id("searchBtn")).click();
-	  for (WebElement element : driver.findElements(By.name("deleteItem"))) 
-	  	element.click(); //delete every book :(
+	  while(!driver.findElements(By.name("deleteItem")).isEmpty()){
+		  driver.findElement(By.name("deleteItem")).click(); //delete every book :(
+		   try{Thread.sleep(1000);} catch(Exception e){}
+	  }
       
 	  driver.findElement(By.id("searchBtn")).click(); //the input box will be empty
 	  assertEquals(true, driver.getPageSource().contains("Sorry we do not have any item matching category '' at this moment"));
@@ -153,6 +156,7 @@ class SeleniumTest {
   public void F4PosTest(){
 	  F3PosTest(); //order a book
 	  driver.findElement(By.id("cartLink")).click();
+	  try{Thread.sleep(1000);} catch(Exception e){}
 	  assertEquals(true, driver.getPageSource().contains("hall001"));
   }
   
@@ -227,9 +231,10 @@ class SeleniumTest {
   @Test
   public void F7PosTest(){
 	  driver.findElement(By.id("searchBtn")).click();
-    if(!driver.getPageSource().contains(uniqueID))
+      if(!driver.getPageSource().contains(uniqueID))
 	      F1PosTest(); //add the uniqueID book if it wasn't here already
 
+	  if(driver.findElements(By.cssSelector("input[value='Sign out']")).isEmpty()) F8PosTest(); //if not signed in, sign in
 	  removeBook(uniqueID); //abstraction of this functionality for reuse elsewhere
 	  assertEquals(false, driver.getPageSource().contains(uniqueID));
   }
@@ -238,8 +243,10 @@ class SeleniumTest {
   public void F7NegTest(){
       F8PosTest(); //login as admin
 	  driver.findElement(By.id("searchBtn")).click();
-	  for (WebElement element : driver.findElements(By.name("deleteItem"))) 
-	  	element.click(); //delete every book :(
+	  while(!driver.findElements(By.name("deleteItem")).isEmpty()){
+		  driver.findElement(By.name("deleteItem")).click(); //delete every book :(
+		  try{Thread.sleep(1000);} catch(Exception e){}
+	  }
       
 	  assertEquals(true, driver.findElements(By.name("deleteItem")).isEmpty()); //now check there is no deleteItem buttons -- yes, this is a VERY redundant test
 	  
@@ -257,11 +264,11 @@ class SeleniumTest {
   
   @Test
   public void F8PosTest(){
-	  driver.get("http://localhost:8080/admin");
-	  driver.findElement(By.id("loginId")).sendKeys("admin");
-	  driver.findElement(By.id("loginPasswd")).sendKeys("password");
-	  driver.findElement(By.id("loginBtn")).click();
-	  assertEquals("http://localhost:8080/admin", driver.getCurrentUrl());
+    driver.get("http://localhost:8080/admin");
+    driver.findElement(By.id("loginId")).sendKeys("admin");
+    driver.findElement(By.id("loginPasswd")).sendKeys("password");
+    driver.findElement(By.id("loginBtn")).click();
+    assertEquals("http://localhost:8080/admin", driver.getCurrentUrl());
   }
   
   @Test

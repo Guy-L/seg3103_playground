@@ -1,4 +1,35 @@
 -------------------------------------------------------------------------------
 Test set: selenium.SeleniumTest
 -------------------------------------------------------------------------------
-Tests run: 18, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 78.046 s - in selenium.SeleniumTest
+Tests run: 39, Failures: 4, Errors: 1, Skipped: 0, Time elapsed: 228.543 s <<< FAILURE! - in selenium.SeleniumTest
+F61NegTest  Time elapsed: 4.231 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at selenium.SeleniumTest.F61NegTest(SeleniumTest.java:215)
+
+F21PosTest  Time elapsed: 3.373 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <We currently have the following items in category 'a'> but was: <Sorry we do not have any item matching category 'a' at this moment>
+	at selenium.SeleniumTest.F21PosTest(SeleniumTest.java:98)
+
+F7PosTest  Time elapsed: 24.314 s  <<< ERROR!
+org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"css selector","selector":"#del\-rfrtc"}
+  (Session info: chrome=91.0.4472.164)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'DESKTOP-805ED91', ip: '192.168.88.228', os.name: 'Windows 10', os.arch: 'x86', os.version: '10.0', java.version: '1.8.0_261'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 91.0.4472.164, chrome: {chromedriverVersion: 91.0.4472.101 (af52a90bf870..., userDataDir: C:\Users\Gui\AppData\Local\...}, goog:chromeOptions: {debuggerAddress: localhost:64714}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9740e1931663b6ff6a3dc7abb71fc1fc
+*** Element info: {Using=id, value=del-rfrtc}
+	at selenium.SeleniumTest.removeBook(SeleniumTest.java:514)
+	at selenium.SeleniumTest.F7PosTest(SeleniumTest.java:238)
+
+F62NegTest  Time elapsed: 4.538 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at selenium.SeleniumTest.F61NegTest(SeleniumTest.java:215)
+	at selenium.SeleniumTest.F62NegTest(SeleniumTest.java:228)
+
+F4NegTest  Time elapsed: 4.065 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at selenium.SeleniumTest.F4NegTest(SeleniumTest.java:167)
+
