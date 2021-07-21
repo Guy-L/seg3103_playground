@@ -48,7 +48,7 @@ $ java -jar lib/junit-platform-console-standalone-1.7.1.jar --class-path dist --
 
 ![Tests output](assets/tests.png)
 
-All tests ran successfully.
+All tests ran successfully.<br>
 An [initial commit](https://github.com/Guy-L/seg3103_playground/commit/f307a19d274cdf63ad277619fcbe51cf5e5e1afe#diff-173996138866d41583e457187fb735b238d2eed897ac330f49b17c60e40b754c) has been made before any code changes, as requested.
 </details>
 
