@@ -1,4 +1,41 @@
 -------------------------------------------------------------------------------
 Test set: selenium.ExampleSeleniumTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 23 s - in selenium.ExampleSeleniumTest
+Tests run: 18, Failures: 2, Errors: 2, Skipped: 0, Time elapsed: 76.361 s <<< FAILURE! - in selenium.ExampleSeleniumTest
+AddBookTC4  Time elapsed: 14.087 s  <<< ERROR!
+org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"css selector","selector":"#del\-cccccc"}
+  (Session info: chrome=91.0.4472.164)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'DESKTOP-805ED91', ip: '192.168.88.228', os.name: 'Windows 10', os.arch: 'x86', os.version: '10.0', java.version: '1.8.0_261'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 91.0.4472.164, chrome: {chromedriverVersion: 91.0.4472.101 (af52a90bf870..., userDataDir: C:\Users\Gui\AppData\Local\...}, goog:chromeOptions: {debuggerAddress: localhost:52702}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 6b81e310c2fac78168303dcc2b69f21e
+*** Element info: {Using=id, value=del-cccccc}
+	at selenium.ExampleSeleniumTest.removeBook(SeleniumTest.java:535)
+	at selenium.ExampleSeleniumTest.AddBookTC4(SeleniumTest.java:434)
+
+SelectLanguageTC1  Time elapsed: 4.384 s  <<< ERROR!
+org.openqa.selenium.StaleElementReferenceException: 
+stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.164)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/stale_element_reference.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'DESKTOP-805ED91', ip: '192.168.88.228', os.name: 'Windows 10', os.arch: 'x86', os.version: '10.0', java.version: '1.8.0_261'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 91.0.4472.164, chrome: {chromedriverVersion: 91.0.4472.101 (af52a90bf870..., userDataDir: C:\Users\Gui\AppData\Local\...}, goog:chromeOptions: {debuggerAddress: localhost:52883}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: dcfff44cedb525b0df4668f51c24d102
+*** Element info: {Using=xpath, value=.//option[normalize-space(.) = "Anglais"]}
+	at selenium.ExampleSeleniumTest.SelectLanguageTC1(SeleniumTest.java:525)
+
+BrowseTC1  Time elapsed: 3.731 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at selenium.ExampleSeleniumTest.AddBookTC1(SeleniumTest.java:361)
+	at selenium.ExampleSeleniumTest.BrowseTC1(SeleniumTest.java:439)
+
+RemoveBookTC1  Time elapsed: 3.413 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at selenium.ExampleSeleniumTest.AddBookTC1(SeleniumTest.java:361)
+	at selenium.ExampleSeleniumTest.RemoveBookTC1(SeleniumTest.java:465)
+

@@ -15,10 +15,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.Select;;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.util.Random;
 
-class ExampleSeleniumTest {
+class SeleniumTest {
 
   static Process server;
   private WebDriver driver;
@@ -45,6 +46,7 @@ class ExampleSeleniumTest {
     // wait to make sure Selenium is done loading the page
     WebDriverWait wait = new WebDriverWait(driver, 60);
     wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("title")));
+	System.out.println("Unique ID for Session: " + uniqueID);
   }
 
   @AfterEach
@@ -56,49 +58,6 @@ class ExampleSeleniumTest {
   public static void tearDownAfterClass() throws Exception {
     server.destroy();
   }
-
-  //@Test
-  //void test1() {
-  //  WebElement element = driver.findElement(By.id("title"));
-  //  String expected = "YAMAZONE BookStore";
-  //  String actual = element.getText();
-  //  assertEquals(expected, actual);
-  //}
-  //
-  //@Test
-  //public void test2() {
-  //  WebElement welcome = driver.findElement(By.cssSelector("p"));
-  //  String expected = "Welcome";
-  //  String actual = welcome.getText();
-  //  assertEquals(expected, getWords(actual)[0]);
-  //  WebElement langSelector = driver.findElement(By.id("locales"));
-  //  langSelector.click();
-  //  WebElement frSelector = driver.findElement(By.cssSelector("option:nth-child(3)"));
-  //  frSelector.click();
-  //  welcome = driver.findElement(By.cssSelector("p"));
-  //  expected = "Bienvenu";
-  //  actual = welcome.getText();
-  //  assertEquals(expected, getWords(actual)[0]);
-  //}
-  //
-  //private String[] getWords(String s) {
-  //  return s.split("\\s+");
-  //}*/
-  //
-  //@Test
-  //public void orderingUpdatingTest(){
-  //  driver.findElement(By.id("searchBtn")).click();
-  //  driver.findElement(By.id("order-hall001")).click();
-  //  driver.findElement(By.id("order-hall002")).click(); //we will remove this item before checkout
-  //  driver.findElement(By.id("order-lewis001")).click(); //we will order two of this item
-  //  driver.findElement(By.id("cartLink")).click();
-  //  driver.findElement(By.id("hall002")).sendKeys("\b0" + Keys.TAB + Keys.ENTER);
-  //  driver.findElement(By.id("lewis001")).sendKeys("\b2" + Keys.TAB + Keys.ENTER + Keys.TAB + Keys.ENTER);
-  //  assertEquals("$104.22", driver.findElement(By.id("order_total")).getText());
-  //  //(expected value obtained from going through the user story manually beforehand
-  //}
-  
-  
   
   //------------------------------------------------------------
   //-------------------- FUNCTIONALITY TESTS -------------------
@@ -106,7 +65,7 @@ class ExampleSeleniumTest {
   
   @Test
   public void F1PosTest(){
-      F8PosTest(); //login as admin
+    F8PosTest(); //login as admin
 	  driver.findElement(By.id("addBook-category")).sendKeys("a");
 	  driver.findElement(By.id("addBook-id")).sendKeys(uniqueID);
 	  driver.findElement(By.id("addBook-title")).sendKeys(uniqueID);
@@ -131,16 +90,15 @@ class ExampleSeleniumTest {
   @Test
   public void F21PosTest(){
 	  driver.findElement(By.id("searchBtn")).click();
-	  if(!driver.getPageSource().contains(uniqueID)) F1PosTest(); //add the uniqueID book since it hasn't been added
+    if(!driver.getPageSource().contains(uniqueID))
+	      F1PosTest(); //add the uniqueID book if it wasn't here already
 	  
 	  driver.findElement(By.id("search")).sendKeys("a");
 	  driver.findElement(By.id("searchBtn")).click();
 	  assertEquals("We currently have the following items in category 'a'", driver.findElement(By.tagName("h1")).getText());
 	  
 	  //F1PosTest() requires its book not to already exist to pass, so we must delete it
-	  F8PosTest(); //login as admin	  
-	  driver.findElement(By.id("searchBtn")).click();
-	  driver.findElement(By.id("del-"+uniqueID)).click();
+	  removeBook(uniqueID);
 	  assertEquals(false, driver.getPageSource().contains(uniqueID));
   }
   
@@ -159,7 +117,7 @@ class ExampleSeleniumTest {
   
   @Test
   public void F22NegTest(){
-      F8PosTest(); //login as admin
+    F8PosTest(); //login as admin
 	  driver.findElement(By.id("searchBtn")).click();
 	  for (WebElement element : driver.findElements(By.name("deleteItem"))) 
 	  	element.click(); //delete every book :(
@@ -269,11 +227,10 @@ class ExampleSeleniumTest {
   @Test
   public void F7PosTest(){
 	  driver.findElement(By.id("searchBtn")).click();
-	  if(driver.getPageSource().contains(uniqueID)) F8PosTest(); //login as admin
-	  else F1PosTest(); //add the uniqueID book since it hasn't been added
-	  
-	  driver.findElement(By.id("searchBtn")).click();
-	  driver.findElement(By.id("del-"+uniqueID)).click();
+    if(!driver.getPageSource().contains(uniqueID))
+	      F1PosTest(); //add the uniqueID book if it wasn't here already
+
+	  removeBook(uniqueID); //abstraction of this functionality for reuse elsewhere
 	  assertEquals(false, driver.getPageSource().contains(uniqueID));
   }
   
@@ -321,82 +278,232 @@ class ExampleSeleniumTest {
   ////------------------------------------------------------------
   
   @Test
-  public void GSignInTC1(){
-	//  
+  public void SignInTC1(){
+	  //N.B.: Functional duplicate of F8PosTest
+	  driver.get("http://localhost:8080/admin");
+	  driver.findElement(By.id("loginId")).sendKeys("admin");
+	  driver.findElement(By.id("loginPasswd")).sendKeys("password");
+	  driver.findElement(By.id("loginBtn")).click();
+	  assertEquals("http://localhost:8080/admin", driver.getCurrentUrl());
+  }
+
+  @Test
+  public void SignInTC2(){
+	  driver.get("http://localhost:8080/admin");
+	  driver.findElement(By.id("loginId")).sendKeys("blah");
+	  driver.findElement(By.id("loginBtn")).click();
+	  assertEquals(true, driver.getPageSource().contains("Invalid username and/or password"));
+	  driver.findElement(By.id("loginId")).sendKeys("foo");
+	  driver.findElement(By.id("loginPasswd")).sendKeys("bar");
+	  driver.findElement(By.id("loginBtn")).click();
+	  assertEquals(true, driver.getPageSource().contains("Invalid username and/or password"));
+	  driver.findElement(By.id("loginId")).sendKeys("admin");
+	  driver.findElement(By.id("loginPasswd")).sendKeys("password");
+	  driver.findElement(By.id("loginBtn")).click();
+	  assertEquals("http://localhost:8080/admin", driver.getCurrentUrl());
   }
   
-//  @Test
-//  public void GSignInTC2(){
-//	//  
-//  }
-//  
-//  @Test
-//  public void GLogOutTC1(){
-//	//  
-//  }
-//  
-//  @Test
-//  public void GAddBookTC1(){
-//	//  
-//  }
-//  
-//  @Test
-//  public void GAddBookTC2(){
-//	//  
-//  }
-//  
-//  @Test
-//  public void GAddBookTC3(){
-//	//  
-//  }
-//  
-//  @Test
-//  public void GAddBookTC4(){
-//	//  
-//  }
-//  
-//  @Test
-//  public void GrowseTC1(){
-//	//  
-//  }
-//  
-//  @Test
-//  public void GrowseTC2(){
-//	//  
-//  }
-//  
-//  @Test
-//  public void GBrowseTC3(){
-//	//  
-//  }
-//  
-//  @Test
-//  public void GOrderBookTC1(){
-//	//  
-//  }
-//  
-//  @Test
-//  public void GOrderBookTC2(){
-//	//  
-//  }
-//  
-//  @Test
-//  public void GUpdateOrderTC1(){
-//	//  
-//  }
-//  
-//  @Test
-//  public void GUpdateOrderTC2(){
-//	//  
-//  }
-//  
-//  @Test
-//  public void GCheckOutTC1(){
-//	//  
-//  }
-//  
-//  @Test
-//  public void GSelectLanguageTC1(){
-//	//  
-//  }
+  @Test
+  public void LogOutTC1(){
+	  SignInTC1(); //login as admin
+	  driver.findElement(By.cssSelector("input[value='Sign out']")).click();
+	  assertEquals(true, driver.getPageSource().contains("You have been logged out"));
+  }
+  
+  @Test
+  public void AddBookTC1(){
+	  //N.B.: Functional duplicate of F1PosTest
+      SignInTC1(); //login as admin
+	  driver.findElement(By.id("addBook-category")).sendKeys("myCoolCategory");
+	  driver.findElement(By.id("addBook-id")).sendKeys(uniqueID + "222");
+	  driver.findElement(By.id("addBook-title")).sendKeys(uniqueID + "222");
+	  driver.findElement(By.id("addBook-authors")).sendKeys("ABC");
+	  driver.findElement(By.id("longDescription")).sendKeys("ABC");
+	  driver.findElement(By.id("cost")).sendKeys("30");
+	  driver.findElement(By.name("addBook")).click();
+	  assertEquals(true, driver.getPageSource().contains("Successfully added book"));
+  }
+  
+  @Test
+  public void AddBookTC2(){
+      SignInTC1(); //login as admin
+	  driver.findElement(By.name("addBook")).click();
+	  assertEquals(true, driver.getPageSource().contains("A title is mandatory"));
+	  assertEquals(true, driver.getPageSource().contains("Missing author(s)"));
+	  assertEquals(true, driver.getPageSource().contains("The Book Id must be between 5 and 8 character long"));
+	  assertEquals(true, driver.getPageSource().contains("A category is mandatory"));
+	  assertEquals(true, driver.getPageSource().contains("A cost is mandatory and must be greater or equal to 0"));
+	  
+	  driver.findElement(By.id("addBook-category")).sendKeys("z");
+	  driver.findElement(By.id("addBook-id")).sendKeys("z");
+	  driver.findElement(By.id("addBook-title")).sendKeys("z");
+	  driver.findElement(By.id("addBook-authors")).sendKeys("z");
+	  driver.findElement(By.id("longDescription")).sendKeys("z");
+	  driver.findElement(By.id("cost")).sendKeys("z");
+	  driver.findElement(By.name("addBook")).click();
+	  assertEquals(true, driver.getPageSource().contains("The Book Id must be between 5 and 8 character long"));
+	  assertEquals(true, driver.getPageSource().contains("A cost is mandatory and must be greater or equal to 0"));
+	  
+	  driver.findElement(By.id("addBook-id")).sendKeys("\bazaza");
+	  driver.findElement(By.id("cost")).sendKeys("\b1");
+	  driver.findElement(By.name("addBook")).click();
+	  assertEquals(true, driver.getPageSource().contains("Successfully added book")); 
+	  
+	  removeBook("azaza");
+  }
+  
+  @Test
+  public void AddBookTC3(){
+      SignInTC1(); //login as admin
+	  driver.findElement(By.id("addBook-category")).sendKeys("Blah");
+	  driver.findElement(By.id("addBook-id")).sendKeys("hall001");
+	  driver.findElement(By.id("addBook-title")).sendKeys("Blah");
+	  driver.findElement(By.id("addBook-authors")).sendKeys("Blah");
+	  driver.findElement(By.id("longDescription")).sendKeys("Blah");
+	  driver.findElement(By.id("cost")).sendKeys("39.95");
+	  driver.findElement(By.name("addBook")).click();
+	  assertEquals(true, driver.getPageSource().contains("Book with same id already exist"));
+	  
+	  driver.findElement(By.id("addBook-id")).sendKeys("\b\b\b\b\b\b\bbbbbbb");
+	  driver.findElement(By.name("addBook")).click();
+	  assertEquals(true, driver.getPageSource().contains("Successfully added book")); 
+	  
+	  removeBook("bbbbbb");
+  }
+  
+  @Test
+  public void AddBookTC4(){
+      SignInTC1(); //login as admin
+	  driver.findElement(By.name("addBook")).click();
+	  assertEquals(true, driver.getPageSource().contains("A title is mandatory"));
+	  assertEquals(true, driver.getPageSource().contains("Missing author(s)"));
+	  assertEquals(true, driver.getPageSource().contains("The Book Id must be between 5 and 8 character long"));
+	  assertEquals(true, driver.getPageSource().contains("A category is mandatory"));
+	  assertEquals(true, driver.getPageSource().contains("A cost is mandatory and must be greater or equal to 0"));
+	  
+	  driver.findElement(By.id("addBook-category")).sendKeys("z");
+	  driver.findElement(By.id("addBook-id")).sendKeys("hall001");
+	  driver.findElement(By.id("addBook-title")).sendKeys("z");
+	  driver.findElement(By.id("addBook-authors")).sendKeys("z");
+	  driver.findElement(By.id("longDescription")).sendKeys("z");
+	  driver.findElement(By.id("cost")).sendKeys("5");
+	  driver.findElement(By.name("addBook")).click();
+	  assertEquals(true, driver.getPageSource().contains("Book with same id already exist"));
+	  
+	  driver.findElement(By.id("addBook-id")).sendKeys("\b\b\b\b\b\b\bccccccc");
+	  driver.findElement(By.name("addBook")).click();
+	  assertEquals(true, driver.getPageSource().contains("Successfully added book")); 
+	  
+	  removeBook("ccccccc");
+  }
+  
+  @Test
+  public void BrowseTC1(){
+	  driver.findElement(By.id("searchBtn")).click();
+      if(!driver.getPageSource().contains(uniqueID+"222"))
+	      AddBookTC1(); //add the uniqueID+222 book if it wasn't here already
+
+	  driver.findElement(By.id("search")).sendKeys("myCoolCategory");
+	  driver.findElement(By.id("searchBtn")).click();
+	  assertEquals("We currently have the following items in category 'myCoolCategory'", driver.findElement(By.tagName("h1")).getText());
+	  
+	  //AddBookTC1 requires its book not to already exist to pass, so we must delete it
+	  if(driver.findElements(By.cssSelector("input[value='Sign out']")).isEmpty()) SignInTC1(); //if not signed in, sign in
+	  removeBook(uniqueID+"222");
+  }
+  
+  @Test
+  public void BrowseTC2(){
+	  //N.B.: Functional duplicate of F22PosTest
+	  driver.findElement(By.id("searchBtn")).click();
+	  assertEquals("We currently have the following items in category ''", driver.findElement(By.tagName("h1")).getText());
+  }
+  
+  @Test
+  public void BrowseTC3(){
+	  driver.findElement(By.id("search")).sendKeys("foobar");
+	  driver.findElement(By.id("searchBtn")).click();
+	  assertEquals("Sorry we do not have any item matching category 'foobar' at this moment", driver.findElement(By.tagName("h1")).getText());
+  }
+
+  @Test
+  public void RemoveBookTC1(){
+	  //N.B.: Functional duplicate of F7PosTest
+	  driver.findElement(By.id("searchBtn")).click();
+      if(!driver.getPageSource().contains(uniqueID+"222"))
+	      AddBookTC1(); //add the uniqueID+222 book if it wasn't here already
+
+      if(driver.findElements(By.cssSelector("input[value='Sign out']")).isEmpty()) SignInTC1(); //if not signed in, sign in
+      removeBook(uniqueID+"222");
+      assertEquals(false, driver.getPageSource().contains(uniqueID+"222"));
+  }
+
+  @Test
+  public void OrderBookTC1(){
+	  //N.B.: Functional duplicate of F3PosTest
+	  driver.findElement(By.id("searchBtn")).click();
+	  driver.findElement(By.id("order-hall001")).click();
+	  //No assert: see Implementation Issues
+  }
+  
+  @Test
+  public void OrderBookTC2(){
+	  driver.findElement(By.id("searchBtn")).click();
+	  driver.findElement(By.id("order-hall001")).click();
+	  driver.findElement(By.id("order-hall001")).click();
+	  //No assert: see Implementation Issues
+  }
+  
+  @Test
+  public void ViewOrderTC1(){
+	  //N.B.: Functional duplicate of F4PosTest
+	  OrderBookTC1(); //order one copy of the hall001 book
+	  driver.findElement(By.id("cartLink")).click();
+	  assertEquals(true, driver.getPageSource().contains("hall001"));
+  }
+  
+  @Test
+  public void UpdateOrderTC1(){
+	  //N.B.: Functional duplicate of F5PosTest
+	  ViewOrderTC1(); //order one copy of the hall001 book & view order  
+	  driver.findElement(By.id("hall001")).sendKeys("\b3" + Keys.TAB + Keys.ENTER);
+	  assertEquals("$119.85", driver.findElement(By.id("tothall001")).getText());
+  }
+  
+  @Test
+  public void UpdateOrderTC2(){
+	  //N.B.: Functional duplicate of F51PosTest
+	  ViewOrderTC1(); //order one copy of the hall001 book & view order  
+  	  driver.findElement(By.id("hall001")).sendKeys("\b0" + Keys.TAB + Keys.ENTER);
+	  assertEquals("$0.00", driver.findElement(By.id("tothall001")).getText());
+	  //Note: this is not really desirable; see Implementation Issues
+  }
+  
+  @Test
+  public void CheckOutTC1(){
+	  UpdateOrderTC1(); //checkout order; three copies of the hall001 book
+	  driver.findElement(By.name("checkout")).click();
+	  assertEquals("$151.42", driver.findElement(By.id("order_total")).getText());
+  }
+  
+  @Test
+  public void SelectLanguageTC1(){
+	  Select dropdown = new Select(driver.findElement(By.id("locales")));
+	  dropdown.selectByVisibleText("French");
+	  assertEquals(true, driver.getPageSource().contains("Librairie Y'AMAZONE")); 
+
+	  //Other tests need the page to be in English, so let's revert
+	  dropdown = new Select(driver.findElement(By.id("locales")));
+	  dropdown.selectByVisibleText("Anglais");
+	  assertEquals(true, driver.getPageSource().contains("YAMAZONE BookStore")); 
+  }
+
+  ////------------------------------------------------------------
+  ////---------------------- HELPER METHOD -----------------------
+  ////------------------------------------------------------------
+  
+  public void removeBook(String ID){
+	  driver.findElement(By.id("searchBtn")).click();
+	  driver.findElement(By.id("del-"+ID)).click();
+  }
 }
